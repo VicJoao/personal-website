@@ -28,6 +28,10 @@ const postOneTitle = ref('');
 const truncatedPostOneText = ref('');
 const postTwoTitle = ref('');
 const truncatedPostTwoText = ref('');
+const postTwoId = ref('');
+const postOneId = ref('');
+const projectOneId = ref('');
+const projectTwoId = ref('');
 
 // Função para buscar dados da página inicial
 const fetchHomeData = async () => {
@@ -37,10 +41,10 @@ const fetchHomeData = async () => {
     });
 
     // Atribui os dados a variáveis reativas
-    aboutTitle.value = response.items[0].fields.aboutTitle || '';
-    aboutText.value = response.items[0].fields.aboutText || '';
-    whatIDoTitle.value = response.items[0].fields.whatIDoTitle || '';
-    whatIDoText.value = response.items[0].fields.whatIDoText || '';
+    aboutTitle.value = response.items[0]?.fields?.aboutTitle || '';
+    aboutText.value = response.items[0]?.fields?.aboutText || '';
+    whatIDoTitle.value = response.items[0]?.fields?.whatIDoTitle || '';
+    whatIDoText.value = response.items[0]?.fields?.whatIDoText || '';
   } catch (error) {
     console.error('Erro ao buscar dados da página inicial do Contentful:', error);
   }
@@ -54,16 +58,20 @@ const fetchPostsData = async () => {
     console.log(response.items);
 
     // Verifica se há entradas de post suficientes
-    if (response.items.length >= 1) {
+    if (response.items.length >= 2) {
       // Dados do primeiro post
       postOneTitle.value = response.items[0].fields.title || '';
       const textOne = documentToHtmlString(response.items[0].fields.body) || '';
       truncatedPostOneText.value = textOne.substring(0, 255) + '...'; // Trunca o texto
+      postOneId.value = response.items[0].sys.id || '';
+      console.log('Post One ID:', postOneId.value);
 
       // Dados do segundo post
       postTwoTitle.value = response.items[1].fields.title || '';
       const textTwo = documentToHtmlString(response.items[1].fields.body) || '';
       truncatedPostTwoText.value = textTwo.substring(0, 255) + '...'; // Trunca o texto
+      postTwoId.value = response.items[1].sys.id || '';
+      console.log('Post Two ID:', postTwoId.value);
     } else {
       console.warn('Não foram encontradas entradas de post suficientes.');
     }
@@ -80,29 +88,28 @@ const fetchProjectsData = async () => {
     });
 
     // Verifica se há entradas de projeto suficientes
-    if (response.items.length >= 1) {
+    if (response.items.length >= 2) {
       // Dados do primeiro projeto
       projectOneTitle.value = response.items[0].fields.title || '';
       const textOne = documentToHtmlString(response.items[0].fields.description) || '';
       truncatedProjectOneText.value = textOne.substring(0, 255) + '...'; // Trunca o texto
       projectOneImage.value = response.items[0].fields.banner?.fields.file.url || '';
+      projectOneId.value = response.items[0].sys.id || '';
+      console.log('Project One ID:', projectOneId.value);
 
       // Dados do segundo projeto
       projectTwoTitle.value = response.items[1].fields.title || '';
       const textTwo = documentToHtmlString(response.items[1].fields.description) || '';
       truncatedProjectTwoText.value = textTwo.substring(0, 255) + '...'; // Trunca o texto
-      projectTwoImage.value = response.items[1].fields.image?.fields.file.url || '';
+      projectTwoImage.value = response.items[1].fields.banner?.fields.file.url || '';
+      projectTwoId.value = response.items[1].sys.id || '';
+      console.log('Project Two ID:', projectTwoId.value);
     } else {
       console.warn('Não foram encontradas entradas de projeto suficientes.');
     }
   } catch (error) {
     console.error('Erro ao buscar dados do projeto do Contentful:', error);
   }
-};
-
-// Função para redirecionar para a página de um projeto específico
-const goToProject = (projectId) => {
-  router.push({ name: 'project', params: { id: projectId } });
 };
 
 // Função para buscar todos os dados
@@ -144,7 +151,7 @@ onMounted(() => {
       <div class="row small-row">
         <!-- Primeiro projeto -->
         <div class="row mb-4">
-          <div class="col-auto"> <!-- Alterado para 'col-auto' para ajustar a largura da coluna da imagem -->
+          <div class="col-auto">
             <img
                 v-if="projectOneImage"
                 :src="projectOneImage"
@@ -153,25 +160,46 @@ onMounted(() => {
             />
           </div>
 
-          <div class="col"> <!-- A coluna do texto ocupará o espaço restante -->
+          <div class="col">
             <h2 v-if="projectOneTitle">{{ projectOneTitle }}</h2>
-            <div v-html="truncatedProjectOneText" class="mb-3"></div> <!-- Renderiza o texto truncado -->
-            <router-link to="/project" class="btn btn-primary mb-3" v-if="projectOneImage">Ver mais</router-link>
+            <div v-html="truncatedProjectOneText" class="mb-3"></div>
+            <router-link
+                v-if="projectOneId"
+                :to="{ name: 'Project', params: { id: projectOneId } }"
+                class="btn btn-primary mt-3">
+              Leia mais
+            </router-link>
+            <span v-else>Projeto não disponível</span>
           </div>
         </div>
 
-
-
         <!-- Segundo projeto -->
         <div class="row mb-4">
-          <h2 v-if="projectTwoTitle" >{{ projectTwoTitle }}</h2>
-          <div v-html="truncatedProjectTwoText" class="mb-3"></div> <!-- Renderiza o texto truncado -->
-          <router-link to="/project" class="btn btn-primary mb-3" v-if="projectTwoImage">Ver mais</router-link>
-          <img v-if="projectTwoImage" :src="projectTwoImage" alt="Project Two" class="img-fluid rounded" />
+          <div class="col-auto">
+            <img
+                v-if="projectTwoImage"
+                :src="projectTwoImage"
+                alt="Project Two"
+                class="img-fluid rounded square-img"
+            />
+          </div>
+
+          <div class="col">
+            <h2 v-if="projectTwoTitle">{{ projectTwoTitle }}</h2>
+            <div v-html="truncatedProjectTwoText" class="mb-3"></div>
+            <router-link
+                v-if="projectTwoId"
+                :to="{ name: 'Project', params: { id: projectTwoId } }"
+                class="btn btn-primary mt-3">
+              Leia mais
+            </router-link>
+            <span v-else>Projeto não disponível</span>
+          </div>
         </div>
       </div>
       <button class="main-btn">Acessar Portifolio</button>
     </section>
+
     <!-- Seção "Posts" -->
     <section>
       <h2 class="mb-4 underlined-cont">Posts</h2>
@@ -180,16 +208,28 @@ onMounted(() => {
       <div class="row">
         <!-- Primeiro post -->
         <div class="row align-content-end justify-content-end">
-          <h2 v-if="postOneTitle" >{{ postOneTitle }}</h2>
-          <div v-html="truncatedPostOneText" class="mb-3"></div> <!-- Renderiza o texto truncado -->
-          <router-link v-if="postOneTitle" to="/posts" class="btn">Ver mais</router-link>
+          <h2 v-if="postOneTitle">{{ postOneTitle }}</h2>
+          <div v-html="truncatedPostOneText" class="mb-3"></div>
+          <router-link
+              v-if="postOneId"
+              :to="{ name: 'Post', params: { id: postOneId } }"
+              class="btn btn-primary mt-3">
+            Leia mais
+          </router-link>
+          <span v-else>Post não disponível</span>
         </div>
 
         <!-- Segundo post -->
         <div class="row align-content-end justify-content-end">
-          <h2 v-if="postTwoTitle" >{{ postTwoTitle }}</h2>
-          <div v-html="truncatedPostTwoText" class="mb-3"></div> <!-- Renderiza o texto truncado -->
-          <router-link v-if="postTwoTitle" to="/posts" class="btn btn-primary ">Ver mais</router-link>
+          <h2 v-if="postTwoTitle">{{ postTwoTitle }}</h2>
+          <div v-html="truncatedPostTwoText" class="mb-3"></div>
+          <router-link
+              v-if="postTwoId"
+              :to="{ name: 'Post', params: { id: postTwoId } }"
+              class="btn btn-primary mt-3">
+            Leia mais
+          </router-link>
+          <span v-else>Post não disponível</span>
         </div>
       </div>
     </section>
@@ -242,7 +282,7 @@ h2 {
   left: -100%; /* Começa fora da tela à esquerda */
   width: 100%; /* Largura total do botão */
   height: 100%; /* Altura total do botão */
-  background-color: white; /* Cor que aparece durante o slide */
+  background-color: white ; /* Cor que aparece durante o slide */
   border: 2px solid #111111; /* Borda do pseudo-elemento */
   border-radius: 0 30px 30px 0;
   transition: left 5s ease; /* Transição suave para o slide */

@@ -85,8 +85,11 @@ h2 {
 .btn{
   background-color: transparent !important;
   border: 0px!important;
+  font-size: 1.2em;
   color: #111111 !important;
   font-weight: bold;
+  margin: 0 auto 0 0;
+  width: auto;
 }
 .btn:hover{
   font-weight: bolder;

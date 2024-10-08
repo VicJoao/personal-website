@@ -100,4 +100,9 @@ const props = defineProps({
 .container {
   border-bottom: 4px solid black; /* Adjust the thickness here */
 }
+
+.navbar{
+  background-color: white !important;
+  border: 0 !important;
+}
 </style>

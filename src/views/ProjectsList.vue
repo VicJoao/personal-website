@@ -46,18 +46,21 @@ onMounted(() => {
     <div class="row">
       <div class="col">
         <!-- Itera sobre os projetos -->
-        <div v-for="project in projects" :key="project.sys.id" class="card mb-4">
-          <div class="card-body">
-            <!-- Verifica se há uma imagem antes de exibir -->
-            <img v-if="project.fields.banner" :src="project.fields.banner.fields.file.url" alt="Imagem do Projeto" class="img-fluid mb-3" />
+        <div v-for="project in projects" :key="project.sys.id">
+          <div class="row">
+            <div class="col-auto"> <!-- Coluna da imagem com largura automática -->
+              <!-- Verifica se há uma imagem antes de exibir -->
+              <img v-if="project.fields.banner" :src="project.fields.banner.fields.file.url" alt="Imagem do Projeto" class="img-fluid mb-3 square-img" />
+            </div>
+            <div class="col"> <!-- Coluna do texto ocupando o restante -->
+              <h2 class="underlined-cont">{{ project.fields.title }}</h2>
 
-            <h2 class="card-title underlined-cont">{{ project.fields.title }}</h2>
+              <!-- Renderiza a descrição truncada em HTML seguro -->
+              <div v-html="truncate(documentToHtmlString(project.fields.description))"></div>
 
-            <!-- Renderiza a descrição truncada em HTML seguro -->
-            <div v-html="truncate(documentToHtmlString(project.fields.description))"></div>
-
-            <!-- Link para a página do projeto -->
-            <router-link :to="{ name: 'Project', params: { id: project.sys.id } }" class="btn btn-primary mt-3">Ver Projeto</router-link>
+              <!-- Link para a página do projeto -->
+              <router-link :to="{ name: 'Project', params: { id: project.sys.id } }" class="btn btn-primary mt-3">Ver Projeto</router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -65,31 +68,50 @@ onMounted(() => {
   </div>
 </template>
 
+
 <style scoped>
-.underlined-cont{
+.underlined-cont {
   padding-bottom: 4px;
   margin-bottom: 4px;
   border-bottom: 4px solid #111111;
 }
+
 h1 {
   text-align: center;
   font-weight: bolder;
   font-size: 3em;
 }
+
 h2 {
   font-size: 2.5em;
 }
+
 .btn{
   background-color: transparent !important;
   border: 0px!important;
+  font-size: 1.2em;
   color: #111111 !important;
   font-weight: bold;
+  margin: 0 auto 0 0;
+  width: auto;
 }
-.btn:hover{
+
+.btn:hover {
   font-weight: bolder;
   color: #808080 !important;
 }
-*{
+
+* {
   font-size: 1.1em;
 }
+
+.square-img {
+  width: 11em; /* Make the image responsive */
+  height: auto; /* Maintain aspect ratio for responsive images */
+  aspect-ratio: 1 / 1; /* Ensure the image is square */
+  object-fit: cover; /* Ensure the image covers the entire area without distortion */
+  border: 8px solid #111111; /* Add a border around the image */
+  border-radius: 8px; /* Add a border radius to the image */
+}
 </style>
+

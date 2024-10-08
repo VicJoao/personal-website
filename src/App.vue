@@ -51,6 +51,7 @@ onMounted(() => {
 
 <template>
   <!-- Passando os dados como props para os componentes -->
+  <img src="/src/assets/background.png" alt="Background"  class="background"/>
   <HeaderSection :logo="logo" :name="siteName" />
   <main>
     <router-view class="view-body" />
@@ -75,5 +76,17 @@ body, html, #app {
 .my-4 {
   margin-top: 4rem !important;
   margin-bottom: 4rem !important;
+}
+.background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  opacity: 0.1;
+  filter: blur(5px);
+  object-fit: cover;
+  object-position: center;
 }
 </style>
