@@ -9,7 +9,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <footer class="bg-light text-dark py-4">
+  <footer class="text-dark py-4">
     <div class="container">
       <div class="row">
         <!-- Informações da empresa -->
@@ -32,7 +32,7 @@ const props = defineProps({
 <style scoped>
 /* Estilos personalizados */
 footer {
-  background-color: #f8f9fa; /* Cor de fundo clara */
+  background-color:transparent; /* Cor de fundo clara */
 }
 
 p {

@@ -102,7 +102,7 @@ const props = defineProps({
 }
 
 .navbar{
-  background-color: white !important;
+  background-color: transparent !important;
   border: 0 !important;
 }
 </style>

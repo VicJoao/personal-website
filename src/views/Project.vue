@@ -3,20 +3,19 @@
     <div class="banner mb-4">
       <img :src="banner" alt="Banner do Projeto" class="img-fluid rounded" />
     </div>
-    <div class="card">
-      <div class="card-body">
-        <h1 class="card-title">{{ title }}</h1>
+
+      <div>
+        <h1 class="card-title underlined-cont">{{ title }}</h1>
         <div class="description mb-3" v-html="description"></div>
-        <div class="gif mb-3">
-          <img :src="gif" alt="GIF do Projeto" class="img-fluid rounded" />
+        <div class="">
+          <img :src="gif" alt="GIF do Projeto" class=" img-fluid rounded gif" />
         </div>
-        <div  class="links">
-          <a v-if="githubLink" :href="githubLink" target="_blank" class="btn btn-primary me-2">GitHub</a>
-          <a v-if="liveLink" :href="liveLink" target="_blank" class="btn btn-success">Live Demo</a>
+        <div class="d-flex justify-content-sm-around">
+          <a v-if="githubLink" :href="githubLink" target="_blank" class="btn">GitHub</a>
+          <a v-if="liveLink" :href="liveLink" target="_blank" class="btn">Live Demo</a>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -84,8 +83,10 @@ export default {
 
 <style>
 .banner img {
-  width: 100%;
+  width: 80%;
   height: auto;
+  margin: 20px 10%;
+  border: 8px solid #111111;
 }
 </style>
 <style scoped>
@@ -104,18 +105,24 @@ h2 {
 }
 .btn{
   background-color: transparent !important;
-  border: 0px!important;
+  border: 2px solid #111111 !important;
   font-size: 1.2em;
   color: #111111 !important;
   font-weight: bold;
-  margin: 0 auto 0 0;
+  margin: 15px auto;
   width: auto;
 }
 .btn:hover{
   font-weight: bolder;
   color: #808080 !important;
+  border: 2px solid #808080 !important;
 }
 *{
   font-size: 1.1em;
+}
+.gif{
+  width: 50%;
+  height: auto;
+  margin: 20px 25%;
 }
 </style>

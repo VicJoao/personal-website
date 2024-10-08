@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import HeaderSection from './components/HeaderSection.vue'
 import FooterSection from './components/FooterSection.vue'
 import { createClient } from 'contentful'
+import backgroundImage from '@/assets/background.png'  // Importando a imagem
 
 // Configuração do cliente Contentful
 const client = createClient({
@@ -51,7 +52,7 @@ onMounted(() => {
 
 <template>
   <!-- Passando os dados como props para os componentes -->
-  <img src="/src/assets/background.png" alt="Background"  class="background"/>
+  <img :src="backgroundImage" alt="Background" class="background"/>
   <HeaderSection :logo="logo" :name="siteName" />
   <main>
     <router-view class="view-body" />
@@ -73,19 +74,19 @@ body, html, #app {
   font-size: 2em; /* Dobro do tamanho normal */
   font-weight: bold; /* Deixa a fonte em negrito */
 }
+
 .my-4 {
   margin-top: 4rem !important;
   margin-bottom: 4rem !important;
 }
-.background{
+
+.background {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: -1;
-  opacity: 0.1;
-  filter: blur(5px);
   object-fit: cover;
   object-position: center;
 }

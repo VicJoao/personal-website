@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <img :src="image" alt="Imagem do Post" class="img-fluid mb-3" />
-    <h1 class="my-4">{{ title }}</h1>
+    <img :src="image" alt="Imagem do Post" class="img-fluid banner" />
+    <h1 class="my-4 underlined-cont">{{ title }}</h1>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col">
         <div v-html="body"></div>
       </div>
     </div>
@@ -94,6 +94,12 @@ h2 {
 .btn:hover{
   font-weight: bolder;
   color: #808080 !important;
+}
+.banner{
+  width: 60%;
+  height: auto;
+  margin: 20px 20%;
+  border: 8px solid #111111;
 }
 *{
   font-size: 1.1em;
