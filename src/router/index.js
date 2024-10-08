@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/views/Home.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from '@/views/Home.vue';
 import Post from "@/views/Post.vue";
 import PostsList from "@/views/PostsList.vue";
 import Project from "@/views/Project.vue";
@@ -39,12 +39,24 @@ const routes = [
         name: 'Contact',
         component: Contact
     },
-]
+];
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.VITE_BASE_URL),
     routes,
+});
 
-})
+// Redirecionar www para a versão sem www
+router.beforeEach((to, from, next) => {
+    const currentHost = window.location.hostname;
 
-export default router
+    // Verifica se o hostname é joaovictordev.com.br
+    if (currentHost === 'joaovictordev.com.br') {
+        // Redireciona para a versão www
+        window.location.href = 'https://www.joaovictordev.com.br' + to.fullPath;
+    } else {
+        next(); // Continua para a próxima rota
+    }
+});
+
+export default router;
