@@ -14,7 +14,7 @@ const routes = [
     },
     {
         path: '/post/:id',
-        name: 'PostDetail',
+        name: 'Post',
         component: Post,
         props: true
     },
@@ -25,7 +25,7 @@ const routes = [
     },
     {
         path: '/project/:id',
-        name: 'ProjectDetail',
+        name: 'Project',
         component: Project,
         props: true
     },

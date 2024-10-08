@@ -3,8 +3,7 @@ import { ref, onMounted } from 'vue'
 import HeaderSection from './components/HeaderSection.vue'
 import FooterSection from './components/FooterSection.vue'
 import { createClient } from 'contentful'
-console.log("SPACE:", import.meta.env.VITE_SPACE);
-console.log("ACCESS_TOKEN:", import.meta.env.VITE_ACCESS_TOKEN);
+
 // Configuração do cliente Contentful
 const client = createClient({
   space: import.meta.env.VITE_SPACE,
@@ -13,7 +12,11 @@ const client = createClient({
 
 // Referências reativas para os dados
 const logo = ref('')
+const siteName = ref('')
 const name = ref('')
+const address = ref('')
+const phone = ref('')
+const email = ref('')
 
 // Função para obter os dados do Contentful
 const fetchData = async () => {
@@ -23,11 +26,13 @@ const fetchData = async () => {
         { content_type: 'homePage' } // Usando o ID correto do tipo de conteúdo
     );
 
-    console.log("RESPONSE:", response);
-
     // Atribuir os dados às referências reativas
     logo.value = response.items[0].fields.logo.fields.file.url;
-    name.value = response.items[0].fields.siteName;
+    siteName.value = response.items[0].fields.siteName;
+    name.value = response.items[0].fields.name;
+    address.value = response.items[0].fields.address;
+    phone.value = response.items[0].fields.cellphone;
+    email.value = response.items[0].fields.email;
   } catch (error) {
     console.error('Erro ao buscar dados do Contentful:', error);
   }
@@ -42,11 +47,11 @@ onMounted(() => {
 
 <template>
   <!-- Passando os dados como props para os componentes -->
-  <HeaderSection :logo="logo" :name="name" />
+  <HeaderSection :logo="logo" :name="siteName" />
   <main>
     <router-view />
   </main>
-  <FooterSection />
+  <FooterSection :name="siteName" :address="address" :phone="phone" :email="email" />
 </template>
 
 <style scoped>
