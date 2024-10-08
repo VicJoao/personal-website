@@ -1,53 +1,92 @@
 <script setup>
-// Definir as props
+// Define props
+const date = new Date();
+const year = date.getFullYear();
+const day = date.getDate();
+const month = date.toLocaleString('default', { month: 'short' }).slice(0, -1);
+
+const volume = Math.ceil((new Date() - new Date('10/07/2024')) / (1000 * 60 * 60 * 24 * 7));
+
 const props = defineProps({
   logo: String,
-  name: String
-})
+  name: String,
+});
 </script>
 
 <template>
-  <div class="container">
-    <!-- Usando os props para exibir o logo e nome -->
-    <div class="d-flex align-items-center my-4">
-      <img :src="logo" alt="Logo" class="me-3" style="width: 50px;" />
-      <h1 class="mb-0">{{ name }}</h1>
+  <div class="container text-center py-3">
+    <!-- Logo and Name -->
+    <div class="d-flex justify-content-center align-items-end my-4">
+      <!-- Display the first part of the name (before the space) -->
+      <h2 class="site-name mb-20 fw-bold">{{ name.split(' ')[0] }}</h2>
+
+      <!-- Display the logo -->
+      <img :src="logo" alt="Logo" class="mx-3" style="width: 250px;" />
+
+      <!-- Display the second part of the name (after the space) -->
+      <h2 class="site-name mb-20 fw-bold">{{ name.split(' ').slice(1).join(' ') }}</h2>
     </div>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light border-top border-bottom py-2">
       <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- Volume -->
+        <div class="navbar-brand"><span>Vol {{ volume }}</span></div>
+
+        <!-- Navbar Links -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link class="nav-link" to="/">Home</router-link>
+              <span class="nav-link"><router-link to="/">Sobre</router-link></span>
             </li>
+            <li class="nav-item"><span class="nav-link">.</span></li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/posts">Posts</router-link>
+              <span class="nav-link"><router-link to="/projects">Portfólio</router-link></span>
             </li>
+            <li class="nav-item"><span class="nav-link">.</span></li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/projects">Portifolio</router-link>
+              <span class="nav-link"><router-link to="/posts">Posts</router-link></span>
             </li>
+            <li class="nav-item"><span class="nav-link">.</span></li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/contact">Contato</router-link>
+              <span class="nav-link"><router-link to="/contact">Contato</router-link></span>
             </li>
           </ul>
         </div>
+
+        <!-- Date -->
+        <div class="navbar-brand"><span>{{ day }} {{ month }}. {{ year }}</span></div>
       </div>
     </nav>
   </div>
 </template>
 
 <style scoped>
-/* Estilos adicionais */
+/* Additional styles */
 .nav-link {
+  font-weight: bold;
+  padding: 0 15px;
+}
+
+.navbar {
+  background-color: #f8f9fa;
+}
+
+.navbar-brand {
+  font-style: italic;
   font-weight: bold;
 }
 
-img {
-  border-radius: 50%;
+.site-name {
+  font-weight: normal !important;
+}
+
+/* Black thick line at the bottom */
+.container {
+  border-bottom: 4px solid black; /* Adjust the thickness here */
 }
 </style>

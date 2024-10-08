@@ -5,7 +5,7 @@ const props = defineProps({
   address: String,
   phone: String,
   email: String
-})
+});
 </script>
 
 <template>
@@ -14,15 +14,15 @@ const props = defineProps({
       <div class="row">
         <!-- Informações da empresa -->
         <div class="col-md-6">
-          <p class="fw-bold">{{ name }}</p>
-          <p>{{ address }}</p>
+          <p class="fw-bold">{{ props.name }}</p>
+          <p>{{ props.address }}</p>
         </div>
 
-        <!-- Contato -->
-        <div class="col-md-6">
-          <h3>Contato</h3>
-          <p><strong>Telefone:</strong> {{ phone }}</p>
-          <p><strong>Email:</strong> {{ email }}</p>
+        <!-- Contato - Alinhado à direita -->
+        <div class="col-md-6 text-end">
+          <p><strong>Contato</strong></p>
+          <p><strong>Telefone:</strong> {{ props.phone }}</p>
+          <p><strong>Email:</strong> {{ props.email }}</p>
         </div>
       </div>
     </div>
@@ -41,5 +41,9 @@ p {
 
 h3 {
   margin-bottom: 1rem;
+}
+
+.container {
+  border-top: 4px solid black;
 }
 </style>
