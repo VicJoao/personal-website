@@ -44,14 +44,14 @@ onMounted(() => {
   <div class="container">
     <h1 class="my-4">Portfólio</h1>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col">
         <!-- Itera sobre os projetos -->
         <div v-for="project in projects" :key="project.sys.id" class="card mb-4">
           <div class="card-body">
             <!-- Verifica se há uma imagem antes de exibir -->
             <img v-if="project.fields.banner" :src="project.fields.banner.fields.file.url" alt="Imagem do Projeto" class="img-fluid mb-3" />
 
-            <h2 class="card-title">{{ project.fields.title }}</h2>
+            <h2 class="card-title underlined-cont">{{ project.fields.title }}</h2>
 
             <!-- Renderiza a descrição truncada em HTML seguro -->
             <div v-html="truncate(documentToHtmlString(project.fields.description))"></div>
@@ -66,5 +66,30 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* Adicione seus estilos aqui */
+.underlined-cont{
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+  border-bottom: 4px solid #111111;
+}
+h1 {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 3em;
+}
+h2 {
+  font-size: 2.5em;
+}
+.btn{
+  background-color: transparent !important;
+  border: 0px!important;
+  color: #111111 !important;
+  font-weight: bold;
+}
+.btn:hover{
+  font-weight: bolder;
+  color: #808080 !important;
+}
+*{
+  font-size: 1.1em;
+}
 </style>

@@ -33,10 +33,10 @@ onMounted(() => {
   <div class="container">
     <h1 class="my-4">Posts</h1>
     <div class="row">
-      <div class="col-md-8">
-        <div v-for="post in posts" :key="post.sys.id" class="card mb-4">
-          <div class="card-body">
-            <h2 class="card-title">{{ post.fields.title }}</h2>
+      <div class="col">
+        <div v-for="post in posts" :key="post.sys.id" class="container">
+          <div class="col">
+            <h2 class="underlined-cont">{{ post.fields.title }}</h2>
             <div v-html="truncate(documentToHtmlString(post.fields.body))"></div>
             <router-link :to="{ name: 'Post', params: { id: post.sys.id } }" class="btn btn-primary mt-3">Leia mais</router-link>
           </div>
@@ -47,5 +47,30 @@ onMounted(() => {
 </template>
 
 <style scoped>
-
+.underlined-cont{
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+  border-bottom: 4px solid #111111;
+}
+h1 {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 3em;
+}
+h2 {
+  font-size: 2.5em;
+}
+.btn{
+  background-color: transparent !important;
+  border: 0px!important;
+  color: #111111 !important;
+  font-weight: bold;
+}
+.btn:hover{
+  font-weight: bolder;
+  color: #808080 !important;
+}
+*{
+  font-size: 1.1em;
+}
 </style>

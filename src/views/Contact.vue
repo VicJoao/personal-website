@@ -37,7 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container my-4">
+  <div class=" container my-4">
     <!-- Exemplo de renderização de múltiplas imagens com layout do Bootstrap -->
     <div class="row text-center">
       <div v-for="n in 7" :key="n" class="col">
@@ -88,5 +88,33 @@ onMounted(() => {
 .banner-logo:hover {
   transform: scale(1.1);
   transition: 0.5s;
+}
+</style>
+<style scoped>
+.underlined-cont{
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+  border-bottom: 4px solid #111111;
+}
+h1 {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 3em;
+}
+h2 {
+  font-size: 2.5em;
+}
+.btn{
+  background-color: transparent !important;
+  border: 0px!important;
+  color: #111111 !important;
+  font-weight: bold;
+}
+.btn:hover{
+  font-weight: bolder;
+  color: #808080 !important;
+}
+*{
+  font-size: 1.1em;
 }
 </style>

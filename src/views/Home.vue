@@ -126,59 +126,150 @@ onMounted(() => {
   <div class="container my-5">
     <!-- Seção "Sobre" -->
     <section>
-      <h2 class="mb-4">{{ aboutTitle }}</h2>
+      <h2 class="mb-4 underlined-cont">{{ aboutTitle }}</h2>
       <div v-html="aboutText" class="mb-5"></div> <!-- Renderiza HTML para o conteúdo -->
     </section>
 
     <!-- Seção "O que eu faço" -->
     <section>
-      <h2 class="mb-4">{{ whatIDoTitle }}</h2>
+      <h2 class="mb-4 underlined-cont">{{ whatIDoTitle }}</h2>
       <div v-html="whatIDoText" class="mb-5"></div> <!-- Renderiza HTML para o conteúdo -->
     </section>
 
     <!-- Seção "Portfólio" -->
     <section>
-      <h2 class="mb-4">Portfólio</h2>
+      <h2 class="mb-4 underlined-cont">Portfólio</h2>
 
       <!-- Projetos -->
-      <div class="row">
+      <div class="row small-row">
         <!-- Primeiro projeto -->
-        <div class="col-md-6 mb-4">
-          <h3>{{ projectOneTitle }}</h3>
-          <div v-html="truncatedProjectOneText" class="mb-3"></div> <!-- Renderiza o texto truncado -->
-          <router-link to="/project" class="btn btn-primary mb-3" v-if="projectOneImage">Ver mais</router-link>
-          <img v-if="projectOneImage" :src="projectOneImage" alt="Project One" class="img-fluid rounded" />
+        <div class="row mb-4">
+          <div class="col-auto"> <!-- Alterado para 'col-auto' para ajustar a largura da coluna da imagem -->
+            <img
+                v-if="projectOneImage"
+                :src="projectOneImage"
+                alt="Project One"
+                class="img-fluid rounded square-img"
+            />
+          </div>
+
+          <div class="col"> <!-- A coluna do texto ocupará o espaço restante -->
+            <h2 v-if="projectOneTitle">{{ projectOneTitle }}</h2>
+            <div v-html="truncatedProjectOneText" class="mb-3"></div> <!-- Renderiza o texto truncado -->
+            <router-link to="/project" class="btn btn-primary mb-3" v-if="projectOneImage">Ver mais</router-link>
+          </div>
         </div>
 
+
+
         <!-- Segundo projeto -->
-        <div class="col-md-6 mb-4">
-          <h3>{{ projectTwoTitle }}</h3>
+        <div class="row mb-4">
+          <h2 v-if="projectTwoTitle" >{{ projectTwoTitle }}</h2>
           <div v-html="truncatedProjectTwoText" class="mb-3"></div> <!-- Renderiza o texto truncado -->
           <router-link to="/project" class="btn btn-primary mb-3" v-if="projectTwoImage">Ver mais</router-link>
           <img v-if="projectTwoImage" :src="projectTwoImage" alt="Project Two" class="img-fluid rounded" />
         </div>
       </div>
+      <button class="main-btn">Acessar Portifolio</button>
     </section>
     <!-- Seção "Posts" -->
     <section>
-      <h2 class="mb-4">Posts</h2>
+      <h2 class="mb-4 underlined-cont">Posts</h2>
 
       <!-- Posts -->
       <div class="row">
         <!-- Primeiro post -->
-        <div class="col-md-6 mb-4">
-          <h3>{{ postOneTitle }}</h3>
+        <div class="row align-content-end justify-content-end">
+          <h2 v-if="postOneTitle" >{{ postOneTitle }}</h2>
           <div v-html="truncatedPostOneText" class="mb-3"></div> <!-- Renderiza o texto truncado -->
-          <router-link v-if="postOneTitle" to="/posts" class="btn btn-primary mb-3">Ver mais</router-link>
+          <router-link v-if="postOneTitle" to="/posts" class="btn">Ver mais</router-link>
         </div>
 
         <!-- Segundo post -->
-        <div class="col-md-6 mb-4">
-          <h3>{{ postTwoTitle }}</h3>
+        <div class="row align-content-end justify-content-end">
+          <h2 v-if="postTwoTitle" >{{ postTwoTitle }}</h2>
           <div v-html="truncatedPostTwoText" class="mb-3"></div> <!-- Renderiza o texto truncado -->
-          <router-link v-if="postTwoTitle" to="/posts" class="btn btn-primary mb-3">Ver mais</router-link>
+          <router-link v-if="postTwoTitle" to="/posts" class="btn btn-primary ">Ver mais</router-link>
         </div>
       </div>
     </section>
   </div>
 </template>
+
+<style scoped>
+.underlined-cont{
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+  border-bottom: 4px solid #111111;
+}
+h1 {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 3em;
+}
+h2 {
+  font-size: 2.5em;
+}
+.btn{
+  background-color: transparent !important;
+  border: 0px!important;
+  font-size: 1.2em;
+  color: #111111 !important;
+  font-weight: bold;
+  margin: 0 auto 0 0;
+  width: auto;
+}
+.main-btn {
+  position: relative; /* Posiciona o botão para o efeito de pseudo-elemento */
+  overflow: hidden; /* Oculta a parte que ultrapassa os limites do botão */
+  background-color: #111111; /* Cor inicial do botão */
+  border: 0px!important;
+  font-size: 1.2em;
+  color: white;
+  font-weight: bold;
+  margin: 0 auto;
+  width: 70%;
+  display: block;
+  border-radius: 0 30px 30px 0;
+  padding: 10px 20px; /* Espaçamento interno */
+  cursor: pointer; /* Muda o cursor para indicar interatividade */
+}
+
+.main-btn::before {
+  content: ''; /* Necessário para o pseudo-elemento */
+  position: absolute; /* Posiciona o elemento dentro do botão */
+  top: 0; /* Alinha ao topo */
+  left: -100%; /* Começa fora da tela à esquerda */
+  width: 100%; /* Largura total do botão */
+  height: 100%; /* Altura total do botão */
+  background-color: white; /* Cor que aparece durante o slide */
+  border: 2px solid #111111; /* Borda do pseudo-elemento */
+  border-radius: 0 30px 30px 0;
+  transition: left 5s ease; /* Transição suave para o slide */
+}
+
+/* Efeito ao passar o mouse */
+.main-btn:hover::before {
+  left: 0; /* Move o pseudo-elemento para a direita */
+}
+
+
+.btn:hover{
+  font-weight: bolder;
+  color: #808080 !important;
+}
+*{
+  font-size: 1.1em;
+}
+.square-img {
+  width: 11em; /* Make the image responsive */
+  height: auto; /* Maintain aspect ratio for responsive images */
+  aspect-ratio: 1 / 1; /* Ensure the image is square */
+  object-fit: cover; /* Ensure the image covers the entire area without distortion */
+  border: 8px solid #111111; /* Add a border around the image */
+}
+.small-row {
+  max-width: 90%;
+  margin: 0 auto;
+}
+</style>

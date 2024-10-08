@@ -26,18 +26,22 @@ const fetchData = async () => {
         { content_type: 'homePage' } // Usando o ID correto do tipo de conteúdo
     );
 
-    // Atribuir os dados às referências reativas
-    logo.value = response.items[0].fields.logo.fields.file.url;
-    siteName.value = response.items[0].fields.siteName;
-    name.value = response.items[0].fields.name;
-    address.value = response.items[0].fields.address;
-    phone.value = response.items[0].fields.cellphone;
-    email.value = response.items[0].fields.email;
+    // Verificação se existem itens
+    if (response.items.length > 0) {
+      const fields = response.items[0].fields;
+      logo.value = fields.logo?.fields.file.url || '';
+      siteName.value = fields.siteName || '';
+      name.value = fields.name || '';
+      address.value = fields.address || '';
+      phone.value = fields.cellphone || '';
+      email.value = fields.email || '';
+    } else {
+      console.error('Nenhum item encontrado.');
+    }
   } catch (error) {
     console.error('Erro ao buscar dados do Contentful:', error);
   }
 };
-
 
 // Executar a função quando o componente for montado
 onMounted(() => {
@@ -49,7 +53,7 @@ onMounted(() => {
   <!-- Passando os dados como props para os componentes -->
   <HeaderSection :logo="logo" :name="siteName" />
   <main>
-    <router-view />
+    <router-view class="view-body" />
   </main>
   <FooterSection :name="siteName" :address="address" :phone="phone" :email="email" />
 </template>
@@ -58,9 +62,18 @@ onMounted(() => {
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 body, html, #app {
-    font-family: "IBM Plex Serif", serif;
-    font-size: 1.6rem;
-    line-height: 1.6;
-    color: #1111;
-  }
+  font-family: "IBM Plex Serif", serif;
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: #111; /* Ajuste da cor */
+}
+
+:deep h1 {
+  font-size: 2em; /* Dobro do tamanho normal */
+  font-weight: bold; /* Deixa a fonte em negrito */
+}
+.my-4 {
+  margin-top: 4rem !important;
+  margin-bottom: 4rem !important;
+}
 </style>

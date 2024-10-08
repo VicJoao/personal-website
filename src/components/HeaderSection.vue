@@ -3,7 +3,7 @@
 const date = new Date();
 const year = date.getFullYear();
 const day = date.getDate();
-const month = date.toLocaleString('default', { month: 'short' }).slice(0, -1);
+const month = date.toLocaleString('default', {month: 'short'}).slice(0, -1);
 
 const volume = Math.ceil((new Date() - new Date('10/07/2024')) / (1000 * 60 * 60 * 24 * 7));
 
@@ -21,7 +21,7 @@ const props = defineProps({
       <h2 class="site-name mb-20 fw-bold">{{ name.split(' ')[0] }}</h2>
 
       <!-- Display the logo -->
-      <img :src="logo" alt="Logo" class="mx-3" style="width: 250px;" />
+      <img :src="logo" alt="Logo" class="mx-3" style="width: 250px;"/>
 
       <!-- Display the second part of the name (after the space) -->
       <h2 class="site-name mb-20 fw-bold">{{ name.split(' ').slice(1).join(' ') }}</h2>
@@ -31,7 +31,7 @@ const props = defineProps({
     <nav class="navbar navbar-expand-lg navbar-light border-top border-bottom py-2">
       <div class="container-fluid">
         <!-- Volume -->
-        <div class="navbar-brand"><span>Vol {{ volume }}</span></div>
+        <div class="navbar-brand"><h1>Vol {{ volume }}</h1></div>
 
         <!-- Navbar Links -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -41,25 +41,33 @@ const props = defineProps({
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <span class="nav-link"><router-link to="/">Sobre</router-link></span>
+              <h1>
+                <router-link class="nav-link" to="/">Sobre</router-link>
+              </h1>
             </li>
-            <li class="nav-item"><span class="nav-link">.</span></li>
+            <li class="nav-item"><h1>.</h1></li>
             <li class="nav-item">
-              <span class="nav-link"><router-link to="/projects">Portfólio</router-link></span>
+              <h1>
+                <router-link class="nav-link" to="/projects">Portfólio</router-link>
+              </h1>
             </li>
-            <li class="nav-item"><span class="nav-link">.</span></li>
+            <li class="nav-item"><h1>.</h1></li>
             <li class="nav-item">
-              <span class="nav-link"><router-link to="/posts">Posts</router-link></span>
+              <h1>
+                <router-link class="nav-link" to="/posts">Posts</router-link>
+              </h1>
             </li>
-            <li class="nav-item"><span class="nav-link">.</span></li>
+            <li class="nav-item"><h1>.</h1></li>
             <li class="nav-item">
-              <span class="nav-link"><router-link to="/contact">Contato</router-link></span>
+              <h1>
+                <router-link class="nav-link" to="/contact">Contato</router-link>
+              </h1>
             </li>
           </ul>
         </div>
 
         <!-- Date -->
-        <div class="navbar-brand"><span>{{ day }} {{ month }}. {{ year }}</span></div>
+        <div class="navbar-brand"><h1>{{ day }} {{ month }}. {{ year }}</h1></div>
       </div>
     </nav>
   </div>
@@ -81,7 +89,10 @@ const props = defineProps({
   font-weight: bold;
 }
 
-.site-name {
+.navbar-text {
+  font-weight: bold;
+}
+.site-name{
   font-weight: normal !important;
 }
 
