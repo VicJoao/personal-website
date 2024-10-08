@@ -13,6 +13,12 @@
 </head>
 <body style="font-family: 'IBM Plex Serif', serif;">
 <div id="app">
-</div>
+</div> <!-- Verifique se o caminho está correto -->
+<script>
+    // Redirecionar todos os 404 para index.html
+    if (location.href.match(/\/[^\/]+$/) && !location.href.match(/\/\./)) {
+        location.replace(`${location.origin}/index.html`);
+    }
+</script>
 </body>
 </html>
