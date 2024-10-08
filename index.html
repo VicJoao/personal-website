@@ -2,17 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/src/assets/Logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./src/assets/main.css"> <!-- Verifique se o caminho está correto -->
-    <title>Vite App</title>
+    <link rel="stylesheet" href="/src/assets/main.css"> <!-- Verifique se o caminho está correto -->
+    <title>Joao V. Dev</title>
 </head>
 <body style="font-family: 'IBM Plex Serif', serif;">
 <div id="app">
 </div>
-<script type="module" src="/src/main.js"></script>
+<script type="module" src="/src/main.js"></script> <!-- Verifique se o caminho está correto -->
+<script>
+    // Redirecionar todos os 404 para index.html
+    if (location.href.match(/\/[^\/]+$/) && !location.href.match(/\/\./)) {
+        location.replace(`${location.origin}/`);
+    }
+</script>
 </body>
 </html>
