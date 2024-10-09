@@ -65,6 +65,7 @@ onMounted(() => {
 
     <!-- Exibindo banner de contato e informações dinâmicas com Bootstrap -->
     <div class="row align-items-center text-center mb-4">
+      <img src="../assets/whatsapp-logo.png" alt="Phone Logo" class="logo-mobile img-fluid ">
       <div class="col d-flex justify-content-center">
         <img src="../assets/whatsapp-logo.png" alt="Phone Logo" class="logo img-fluid ">
         <a :href="phone">
@@ -74,6 +75,7 @@ onMounted(() => {
     </div>
 
     <div class="row align-items-center text-center">
+      <img src="../assets/email-logo.png" alt="Email Logo" class="logo-mobile img-fluid ">
       <div class="col d-flex justify-content-center mb-3">
         <a :href="'mailto:' + email">
           <img :src="emailBanner" alt="Email Banner" class="img-fluid banner-logo">
@@ -141,5 +143,30 @@ h2 {
 }
 *{
   font-size: 1.1em;
+}
+.logo-mobile{
+  display: none;
+}
+@media (max-width: 768px) {
+  .logo {
+    display: none;
+  }
+  .logo-mobile {
+    display: block;
+    max-height: 250px;
+    object-fit: contain;
+  }
+  .logo-mobile:hover{
+    transform: scale(0.9);
+    rotate: -10deg;
+  }
+  .banner-logo {
+    max-height: 250px;
+    object-fit: contain;
+  }
+  .banner-logo:hover {
+    transform: scale(0.9);
+    transition: 0.5s;
+  }
 }
 </style>
