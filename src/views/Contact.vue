@@ -40,16 +40,34 @@ onMounted(() => {
   <div class="container my-4">
     <!-- Exemplo de renderização de múltiplas imagens com layout do Bootstrap -->
     <div class="row text-center">
-      <div v-for="n in 7" :key="n" class="col">
-        <img :src="`/src/assets/contact/contato (${n}).png`" :alt="`Contato Image ${n}`" class="img-fluid lettering">
+      <div class="col">
+        <img src="../assets/contato (1).png" alt="Contato Image 1" class="img-fluid lettering">
+      </div>
+      <div class="col">
+        <img src="../assets/contato (2).png" alt="Contato Image 2" class="img-fluid lettering">
+      </div>
+      <div class="col">
+        <img src="../assets/contato (3).png" alt="Contato Image 3" class="img-fluid lettering">
+      </div>
+      <div class="col">
+        <img src="../assets/contato (4).png" alt="Contato Image 4" class="img-fluid lettering">
+      </div>
+      <div class="col">
+        <img src="../assets/contato (5).png" alt="Contato Image 5" class="img-fluid lettering">
+      </div>
+      <div class="col">
+        <img src="../assets/contato (6).png" alt="Contato Image 6" class="img-fluid lettering">
+      </div>
+      <div class="col">
+        <img src="../assets/contato (7).png" alt="Contato Image 7" class="img-fluid lettering">
       </div>
     </div>
 
     <!-- Exibindo banner de contato e informações dinâmicas com Bootstrap -->
     <div class="row align-items-center text-center mb-4">
       <div class="col d-flex justify-content-center">
-        <img :src="'/src/assets/whatsapp-logo.png'" alt="Phone Logo" class="logo img-fluid ">
-        <a :href="'tel:' + phone">
+        <img src="../assets/whatsapp-logo.png" alt="Phone Logo" class="logo img-fluid ">
+        <a :href="phone">
           <img :src="phoneBanner" alt="Phone Banner" class="img-fluid banner-logo">
         </a>
       </div>
@@ -60,7 +78,7 @@ onMounted(() => {
         <a :href="'mailto:' + email">
           <img :src="emailBanner" alt="Email Banner" class="img-fluid banner-logo">
         </a>
-        <img :src="'/src/assets/email-logo.png'" alt="Email Logo" class="logo img-fluid">
+        <img src="../assets/email-logo.png" alt="Email Logo" class="logo img-fluid">
       </div>
     </div>
   </div>
