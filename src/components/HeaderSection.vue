@@ -27,11 +27,17 @@ const props = defineProps({
       <h2 class="site-name mb-20 fw-bold">{{ name.split(' ').slice(1).join(' ') }}</h2>
     </div>
 
+    <!-- Volume and Date for Small Screens -->
+    <div class="d-flex d-lg-none mb-2 align-items-center justify-content-between">
+      <h1>Vol {{ volume }}</h1>
+      <h1>{{ day }} {{ month }}. {{ year }}</h1>
+    </div>
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light border-top border-bottom py-2">
-      <div class="container-fluid">
-        <!-- Volume -->
-        <div class="navbar-brand"><h1>Vol {{ volume }}</h1></div>
+      <div class="container-fluid d-flex justify-content-center">
+        <!-- Volume for Large Screens -->
+        <div class="navbar-brand d-none d-lg-block"><h1>Vol {{ volume }}</h1></div>
 
         <!-- Navbar Links -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -66,8 +72,8 @@ const props = defineProps({
           </ul>
         </div>
 
-        <!-- Date -->
-        <div class="navbar-brand"><h1>{{ day }} {{ month }}. {{ year }}</h1></div>
+        <!-- Date for Large Screens -->
+        <div class="navbar-brand d-none d-lg-block"><h1>{{ day }} {{ month }}. {{ year }}</h1></div>
       </div>
     </nav>
   </div>
@@ -92,7 +98,8 @@ const props = defineProps({
 .navbar-text {
   font-weight: bold;
 }
-.site-name{
+
+.site-name {
   font-weight: normal !important;
 }
 
@@ -101,8 +108,28 @@ const props = defineProps({
   border-bottom: 4px solid black; /* Adjust the thickness here */
 }
 
-.navbar{
+.navbar {
   background-color: transparent !important;
   border: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .navbar-brand {
+    display: none;
+  }
+  .navbar-nav {
+    width: 100%;
+    justify-content: space-evenly;
+  }
+  .nav-link {
+    padding: 0 5px;
+  }
+  .collapse:not(.show) {
+    display: none; /* Ensures that the navbar remains collapsed by default */
+  }
+  .navbar-collapse.show {
+    display: flex !important; /* Makes sure the navbar expands when toggled */
+    justify-content: center;
+  }
 }
 </style>

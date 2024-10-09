@@ -58,22 +58,24 @@ const fetchPostsData = async () => {
     console.log(response.items);
 
     // Verifica se há entradas de post suficientes
-    if (response.items.length >= 2) {
+    if (response.items.length >= 1) {
       // Dados do primeiro post
       postOneTitle.value = response.items[0].fields.title || '';
       const textOne = documentToHtmlString(response.items[0].fields.body) || '';
       truncatedPostOneText.value = textOne.substring(0, 255) + '...'; // Trunca o texto
       postOneId.value = response.items[0].sys.id || '';
       console.log('Post One ID:', postOneId.value);
-
-      // Dados do segundo post
-      postTwoTitle.value = response.items[1].fields.title || '';
-      const textTwo = documentToHtmlString(response.items[1].fields.body) || '';
-      truncatedPostTwoText.value = textTwo.substring(0, 255) + '...'; // Trunca o texto
-      postTwoId.value = response.items[1].sys.id || '';
-      console.log('Post Two ID:', postTwoId.value);
     } else {
-      console.warn('Não foram encontradas entradas de post suficientes.');
+      if (response.items.length >= 2) {
+        // Dados do segundo post
+        postTwoTitle.value = response.items[1].fields.title || '';
+        const textTwo = documentToHtmlString(response.items[1].fields.body) || '';
+        truncatedPostTwoText.value = textTwo.substring(0, 255) + '...'; // Trunca o texto
+        postTwoId.value = response.items[1].sys.id || '';
+        console.log('Post Two ID:', postTwoId.value);
+      } else {
+        console.warn('Não foram encontradas entradas de post suficientes.');
+      }
     }
   } catch (error) {
     console.error('Erro ao buscar dados do post do Contentful:', error);
@@ -88,7 +90,7 @@ const fetchProjectsData = async () => {
     });
 
     // Verifica se há entradas de projeto suficientes
-    if (response.items.length >= 2) {
+    if (response.items.length >= 1) {
       // Dados do primeiro projeto
       projectOneTitle.value = response.items[0].fields.title || '';
       const textOne = documentToHtmlString(response.items[0].fields.description) || '';
@@ -96,7 +98,7 @@ const fetchProjectsData = async () => {
       projectOneImage.value = response.items[0].fields.banner?.fields.file.url || '';
       projectOneId.value = response.items[0].sys.id || '';
       console.log('Project One ID:', projectOneId.value);
-
+    } else { if (response.items.length >= 2) {
       // Dados do segundo projeto
       projectTwoTitle.value = response.items[1].fields.title || '';
       const textTwo = documentToHtmlString(response.items[1].fields.description) || '';
@@ -106,7 +108,7 @@ const fetchProjectsData = async () => {
       console.log('Project Two ID:', projectTwoId.value);
     } else {
       console.warn('Não foram encontradas entradas de projeto suficientes.');
-    }
+    }}
   } catch (error) {
     console.error('Erro ao buscar dados do projeto do Contentful:', error);
   }
@@ -193,7 +195,7 @@ onMounted(() => {
                 class="btn btn-primary mt-3">
               Leia mais
             </router-link>
-            <span v-else>Projeto não disponível</span>
+            <span v-else></span>
           </div>
         </div>
       </div>
@@ -229,7 +231,7 @@ onMounted(() => {
               class="btn btn-primary mt-3">
             Leia mais
           </router-link>
-          <span v-else>Post não disponível</span>
+          <span v-else></span>
         </div>
       </div>
     </section>

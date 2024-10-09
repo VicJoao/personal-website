@@ -113,5 +113,12 @@ h2 {
   border: 8px solid #111111; /* Add a border around the image */
   border-radius: 8px; /* Add a border radius to the image */
 }
+@media (max-width: 768px) {
+  .square-img {
+    width: 80%; /* Make the image responsive */
+    height: auto; /* Maintain aspect ratio for responsive images */
+    margin: 20px 10%; /* Center the image */
+  }
+}
 </style>
 

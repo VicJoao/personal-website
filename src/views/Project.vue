@@ -121,8 +121,8 @@ h2 {
   font-size: 1.1em;
 }
 .gif{
-  width: 50%;
+  width: 80%;
   height: auto;
-  margin: 20px 25%;
+  margin: 20px 10%;
 }
 </style>

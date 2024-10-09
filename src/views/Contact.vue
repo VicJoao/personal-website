@@ -23,8 +23,8 @@ const fetchData = async () => {
     emailBanner.value = contactFields.emailBanner.fields.file.url;
     email.value = contactFields.email;
     phoneBanner.value = contactFields.phoneBanner.fields.file.url;
-    phone.value = contactFields.phone;
-
+    phone.value = contactFields.phoneNumber;
+    console.log('Dados do Contentful:', contactFields);
   } catch (error) {
     console.error('Erro ao buscar dados do Contentful:', error);
   }
