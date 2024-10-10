@@ -15,9 +15,7 @@ const router = useRouter();
 
 // Variáveis reativas para armazenar dados
 const aboutTitle = ref('');
-const aboutText = ref('');
 const whatIDoTitle = ref('');
-const whatIDoText = ref('');
 const projectOneTitle = ref('');
 const truncatedProjectOneText = ref('');
 const projectOneImage = ref('');
@@ -32,6 +30,8 @@ const postTwoId = ref('');
 const postOneId = ref('');
 const projectOneId = ref('');
 const projectTwoId = ref('');
+const whatIDoText = ref('');
+const aboutText = ref('');
 
 // Função para buscar dados da página inicial
 const fetchHomeData = async () => {
@@ -42,9 +42,10 @@ const fetchHomeData = async () => {
 
     // Atribui os dados a variáveis reativas
     aboutTitle.value = response.items[0]?.fields?.aboutTitle || '';
-    aboutText.value = response.items[0]?.fields?.aboutText || '';
+    aboutText.value = documentToHtmlString(response.items[0]?.fields?.aboutText) || '';
     whatIDoTitle.value = response.items[0]?.fields?.whatIDoTitle || '';
-    whatIDoText.value = response.items[0]?.fields?.whatIDoText || '';
+    whatIDoText.value = documentToHtmlString(response.items[0]?.fields?.whatIDoText) || '';
+    console.log(aboutText);
   } catch (error) {
     console.error('Erro ao buscar dados da página inicial do Contentful:', error);
   }
@@ -55,7 +56,6 @@ const fetchPostsData = async () => {
     const response = await client.getEntries({
       content_type: 'blogPage'
     });
-    console.log(response.items);
 
     // Verifica se há entradas de post suficientes
     if (response.items.length >= 1) {
@@ -64,7 +64,6 @@ const fetchPostsData = async () => {
       const textOne = documentToHtmlString(response.items[0].fields.body) || '';
       truncatedPostOneText.value = textOne.substring(0, 255) + '...'; // Trunca o texto
       postOneId.value = response.items[0].sys.id || '';
-      console.log('Post One ID:', postOneId.value);
     } else {
       if (response.items.length >= 2) {
         // Dados do segundo post
@@ -97,7 +96,6 @@ const fetchProjectsData = async () => {
       truncatedProjectOneText.value = textOne.substring(0, 255) + '...'; // Trunca o texto
       projectOneImage.value = response.items[0].fields.banner?.fields.file.url || '';
       projectOneId.value = response.items[0].sys.id || '';
-      console.log('Project One ID:', projectOneId.value);
     } else { if (response.items.length >= 2) {
       // Dados do segundo projeto
       projectTwoTitle.value = response.items[1].fields.title || '';
@@ -142,7 +140,7 @@ onMounted(() => {
     <!-- Seção "O que eu faço" -->
     <section>
       <h2 class="mb-4 underlined-cont">{{ whatIDoTitle }}</h2>
-      <div v-html="whatIDoText" class="mb-5"></div> <!-- Renderiza HTML para o conteúdo -->
+      <div v-html="whatIDoText" class="mb-3"></div>
     </section>
 
     <!-- Seção "Portfólio" -->

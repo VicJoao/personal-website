@@ -114,6 +114,9 @@ const props = defineProps({
 }
 
 @media (max-width: 768px) {
+  .site-name {
+    display: none;
+  }
   .navbar-brand {
     display: none;
   }
