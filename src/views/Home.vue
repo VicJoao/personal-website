@@ -275,18 +275,18 @@ h2 {
   cursor: pointer; /* Muda o cursor para indicar interatividade */
 }
 
-.main-btn::before {
-  content: ''; /* Necessário para o pseudo-elemento */
-  position: absolute; /* Posiciona o elemento dentro do botão */
-  top: 0; /* Alinha ao topo */
-  left: -100%; /* Começa fora da tela à esquerda */
-  width: 100%; /* Largura total do botão */
-  height: 100%; /* Altura total do botão */
-  background-color: white ; /* Cor que aparece durante o slide */
-  border: 2px solid #111111; /* Borda do pseudo-elemento */
+/*.main-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: white ;
+  border: 2px solid #111111;
   border-radius: 0 30px 30px 0;
-  transition: left 5s ease; /* Transição suave para o slide */
-}
+  transition: left 5s ease;
+}*/
 
 /* Efeito ao passar o mouse */
 .main-btn:hover::before {
@@ -298,9 +298,7 @@ h2 {
   font-weight: bolder;
   color: #808080 !important;
 }
-*{
-  font-size: 1.1em;
-}
+
 .square-img {
   width: 11em; /* Make the image responsive */
   height: auto; /* Maintain aspect ratio for responsive images */

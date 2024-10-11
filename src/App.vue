@@ -65,7 +65,7 @@ onMounted(() => {
 
 body, html, #app {
   font-family: "IBM Plex Serif", serif;
-  font-size: 1.6rem;
+  font-size: 3rem;
   line-height: 1.6;
   color: #111; /* Ajuste da cor */
 }
