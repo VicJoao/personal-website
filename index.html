@@ -23,11 +23,5 @@
 <div id="app">
 </div>
 <script type="module" src="/src/main.js"></script> <!-- Verifique se o caminho está correto -->
-<script>
-    // Redirecionar todos os 404 para index.html
-    if (location.href.match(/\/[^\/]+$/) && !location.href.match(/\/\./)) {
-        location.replace(`${location.origin}/`);
-    }
-</script>
 </body>
 </html>

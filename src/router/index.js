@@ -1,10 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router'; // Alterado para hash history
 import Home from '@/views/Home.vue';
 import Post from "@/views/Post.vue";
 import PostsList from "@/views/PostsList.vue";
 import Project from "@/views/Project.vue";
 import ProjectsList from "@/views/ProjectsList.vue";
 import Contact from "@/views/Contact.vue";
+import MealPlan from "@/views/MealPlan.vue";
 
 const routes = [
     {
@@ -39,24 +40,16 @@ const routes = [
         name: 'Contact',
         component: Contact
     },
+    {
+        path: '/cardapio',
+        name: 'MealPlan',
+        component: MealPlan
+    }
 ];
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.VITE_BASE_URL),
+    history: createWebHashHistory(import.meta.env.VITE_BASE_URL), // Modo hash ativado
     routes,
-});
-
-// Redirecionar www para a versão sem www
-router.beforeEach((to, from, next) => {
-    const currentHost = window.location.hostname;
-
-    // Verifica se o hostname é joaovictordev.com.br
-    if (currentHost === 'joaovictordev.com.br') {
-        // Redireciona para a versão www
-        window.location.href = 'https://www.joaovictordev.com.br' + to.fullPath;
-    } else {
-        next(); // Continua para a próxima rota
-    }
 });
 
 export default router;
