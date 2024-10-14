@@ -82,7 +82,7 @@ export default {
   methods: {
     async fetchMeals() {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/api/meals');
+        const response = await axios.get('https://cardapioru.onrender.com/api/meals');
         this.meals['Café da Manhã'] = response.data['Café da Manhã'][0];
         this.meals['Almoço'] = response.data['Almoço'][0];
         this.meals['Jantar'] = response.data['Jantar'][0];
