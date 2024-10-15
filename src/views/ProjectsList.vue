@@ -87,13 +87,14 @@ h2 {
 }
 
 .btn{
-  background-color: transparent !important;
+  background-color: #666666;
   border: 0px!important;
   font-size: 1.2em;
   color: #111111 !important;
   font-weight: bold;
   margin: 0 auto 0 0;
   width: auto;
+  margin-bottom: 50px;
 }
 
 .btn:hover {
@@ -114,10 +115,26 @@ h2 {
   border-radius: 8px; /* Add a border radius to the image */
 }
 @media (max-width: 768px) {
+  .btn{
+    margin: 30px 20px;
+  }
   .square-img {
     width: 80%; /* Make the image responsive */
     height: auto; /* Maintain aspect ratio for responsive images */
     margin: 20px 10%; /* Center the image */
+  }
+  h1 {
+    font-size: 2em;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  * {
+    font-size: 1em;
+    text-align: justify;
+  }
+  p{
+    text-align: justify !important;
   }
 }
 </style>

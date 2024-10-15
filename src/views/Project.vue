@@ -119,10 +119,27 @@ h2 {
 }
 *{
   font-size: 1.1em;
+  text-align: justify;
 }
 .gif{
   width: 80%;
   height: auto;
   margin: 20px 10%;
+}
+@media (max-width: 767px) {
+  .banner img {
+    width: 100%;
+    margin: 20px 0;
+  }
+  h1 {
+    font-size: 2em;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  *{
+    font-size: 1em;
+
+  }
 }
 </style>

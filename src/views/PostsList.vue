@@ -61,13 +61,14 @@ h2 {
   font-size: 2.5em;
 }
 .btn{
-  background-color: transparent !important;
+  background-color: #666666;
   border: 0px!important;
   font-size: 1.2em;
   color: #111111 !important;
   font-weight: bold;
   margin: 0 auto 0 0;
   width: auto;
+  margin-bottom: 60px;
 }
 .btn:hover{
   font-weight: bolder;
@@ -75,5 +76,19 @@ h2 {
 }
 *{
   font-size: 1.1em;
+}
+p{
+  text-align: justify !important;
+}
+@media (max-width: 767px) {
+  h1 {
+    font-size: 2em;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  *{
+    font-size: 1em;
+  }
 }
 </style>

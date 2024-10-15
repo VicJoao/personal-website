@@ -154,7 +154,7 @@ onMounted(() => {
       <!-- Projetos -->
       <div class="row small-row">
         <!-- Primeiro projeto -->
-        <div class="row mb-4">
+        <div class="row mb-4 project">
           <div class="col-auto">
             <img
                 v-if="projectOneImage"
@@ -178,7 +178,7 @@ onMounted(() => {
         </div>
 
         <!-- Segundo projeto -->
-        <div class="row mb-4">
+        <div class="row project">
           <div class="col-auto">
             <img
                 v-if="projectTwoImage"
@@ -255,13 +255,14 @@ h2 {
   font-size: 2.5em;
 }
 .btn{
-  background-color: transparent !important;
+  background-color: #666666;
   border: 0px!important;
   font-size: 1.2em;
   color: #111111 !important;
   font-weight: bold;
   margin: 0 auto 0 0;
   width: auto;
+  margin-bottom: 50px;
 }
 .main-btn {
   text-align: center;
@@ -279,6 +280,7 @@ h2 {
   border-radius: 0 30px 30px 0;
   padding: 10px 20px; /* Espaçamento interno */
   cursor: pointer; /* Muda o cursor para indicar interatividade */
+  margin-bottom: 50px;
 }
 
 /*.main-btn::before {
@@ -300,6 +302,7 @@ h2 {
 }
 
 
+
 .btn:hover{
   font-weight: bolder;
   color: #808080 !important;
@@ -315,5 +318,18 @@ h2 {
 .small-row {
   max-width: 90%;
   margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+  .small-row {
+    max-width: 100%;
+  }
+  .project {
+    padding-bottom: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 }
 </style>

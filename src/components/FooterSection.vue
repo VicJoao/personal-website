@@ -19,7 +19,7 @@ const props = defineProps({
         </div>
 
         <!-- Contato - Alinhado à direita -->
-        <div class="col-md-6 text-end">
+        <div class="col-md-6 text-e">
           <p><strong>Contato</strong></p>
           <p><strong>Telefone:</strong> {{ props.phone }}</p>
           <p><strong>Email:</strong> {{ props.email }}</p>
@@ -45,5 +45,18 @@ h3 {
 
 .container {
   border-top: 4px solid black;
+}
+.text-e {
+  text-align: right;
+  justify-content: right;
+}
+@media (max-width: 767px) {
+  .col-md-6 {
+    text-align: center;
+  }
+  .text-e {
+    text-align: center;
+    justify-content: center;
+  }
 }
 </style>

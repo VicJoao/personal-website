@@ -68,6 +68,7 @@ body, html, #app {
   font-size: 3rem;
   line-height: 1.6;
   color: #111; /* Ajuste da cor */
+  text-align: justify;
 }
 
 :deep h1 {
