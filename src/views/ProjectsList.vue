@@ -1,40 +1,36 @@
 <script setup>
 import { createClient } from "contentful";
-import { ref, onMounted } from 'vue';
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import { useRouter } from 'vue-router';
+import { ref, onMounted } from "vue";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { useRouter } from "vue-router";
 
 const projects = ref([]);
 
-// Função para buscar os dados do Contentful
 const fetchData = async () => {
   try {
     const client = createClient({
       space: import.meta.env.VITE_SPACE,
-      accessToken: import.meta.env.VITE_ACCESS_TOKEN
+      accessToken: import.meta.env.VITE_ACCESS_TOKEN,
     });
 
     const response = await client.getEntries({
-      content_type: 'projectPage'
+      content_type: "projectPage",
     });
     for (let i = 0; i < response.items.length; i++) {
       console.log(response.items[i].fields);
     }
 
     projects.value = response.items;
-
   } catch (error) {
-    console.error('Erro ao buscar dados do Contentful:', error);
+    console.error("Erro ao buscar dados do Contentful:", error);
   }
 };
 
-// Função para truncar a descrição
 const truncate = (text, maxLength = 255) => {
-  if (!text) return '';
-  return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+  if (!text) return "";
+  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
 };
 
-// Carrega os dados quando o componente é montado
 onMounted(() => {
   fetchData();
 });
@@ -45,21 +41,28 @@ onMounted(() => {
     <h1 class="my-4">Portfólio</h1>
     <div class="row">
       <div class="col">
-        <!-- Itera sobre os projetos -->
         <div v-for="project in projects" :key="project.sys.id">
           <div class="row">
-            <div class="col-auto"> <!-- Coluna da imagem com largura automática -->
-              <!-- Verifica se há uma imagem antes de exibir -->
-              <img v-if="project.fields.banner" :src="project.fields.banner.fields.file.url" alt="Imagem do Projeto" class="img-fluid mb-3 square-img" />
+            <div class="col-auto">
+              <img
+                v-if="project.fields.banner"
+                :src="project.fields.banner.fields.file.url"
+                alt="Imagem do Projeto"
+                class="img-fluid mb-3 square-img"
+              />
             </div>
-            <div class="col"> <!-- Coluna do texto ocupando o restante -->
+            <div class="col">
               <h2 class="underlined-cont">{{ project.fields.title }}</h2>
-
-              <!-- Renderiza a descrição truncada em HTML seguro -->
-              <div v-html="truncate(documentToHtmlString(project.fields.description))"></div>
-
-              <!-- Link para a página do projeto -->
-              <router-link :to="{ name: 'Project', params: { id: project.sys.id } }" class="btn btn-primary mt-3">Ver Projeto</router-link>
+              <div
+                v-html="
+                  truncate(documentToHtmlString(project.fields.description))
+                "
+              ></div>
+              <router-link
+                :to="{ name: 'Project', params: { id: project.sys.id } }"
+                class="btn btn-primary mt-3"
+                >Ver Projeto</router-link
+              >
             </div>
           </div>
         </div>
@@ -67,7 +70,6 @@ onMounted(() => {
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .underlined-cont {
@@ -86,9 +88,9 @@ h2 {
   font-size: 2.5em;
 }
 
-.btn{
+.btn {
   background-color: #666666;
-  border: 0px!important;
+  border: 0px !important;
   font-size: 1.2em;
   color: #111111 !important;
   font-weight: bold;
@@ -107,21 +109,21 @@ h2 {
 }
 
 .square-img {
-  width: 11em; /* Make the image responsive */
-  height: auto; /* Maintain aspect ratio for responsive images */
-  aspect-ratio: 1 / 1; /* Ensure the image is square */
-  object-fit: cover; /* Ensure the image covers the entire area without distortion */
-  border: 8px solid #111111; /* Add a border around the image */
-  border-radius: 8px; /* Add a border radius to the image */
+  width: 11em;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 8px solid #111111;
+  border-radius: 8px;
 }
 @media (max-width: 768px) {
-  .btn{
+  .btn {
     margin: 30px 20px;
   }
   .square-img {
-    width: 80%; /* Make the image responsive */
-    height: auto; /* Maintain aspect ratio for responsive images */
-    margin: 20px 10%; /* Center the image */
+    width: 80%;
+    height: auto;
+    margin: 20px 10%;
   }
   h1 {
     font-size: 2em;
@@ -133,9 +135,8 @@ h2 {
     font-size: 1em;
     text-align: justify;
   }
-  p{
+  p {
     text-align: justify !important;
   }
 }
 </style>
-

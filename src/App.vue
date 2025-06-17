@@ -1,79 +1,77 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import HeaderSection from './components/HeaderSection.vue'
-import FooterSection from './components/FooterSection.vue'
-import { createClient } from 'contentful'
-import backgroundImage from '@/assets/background.png'  // Importando a imagem
+import { ref, onMounted } from "vue";
+import HeaderSection from "./components/HeaderSection.vue";
+import FooterSection from "./components/FooterSection.vue";
+import { createClient } from "contentful";
+import backgroundImage from "@/assets/background.png";
 
-// Configuração do cliente Contentful
 const client = createClient({
   space: import.meta.env.VITE_SPACE,
-  accessToken: import.meta.env.VITE_ACCESS_TOKEN
+  accessToken: import.meta.env.VITE_ACCESS_TOKEN,
 });
 
-// Referências reativas para os dados
-const logo = ref('')
-const siteName = ref('')
-const name = ref('')
-const address = ref('')
-const phone = ref('')
-const email = ref('')
+const logo = ref("");
+const siteName = ref("");
+const name = ref("");
+const address = ref("");
+const phone = ref("");
+const email = ref("");
 
-// Função para obter os dados do Contentful
 const fetchData = async () => {
   try {
-    // Buscar os dados do Contentful usando o ID do tipo de conteúdo
-    const response = await client.getEntries(
-        { content_type: 'homePage' } // Usando o ID correto do tipo de conteúdo
-    );
+    const response = await client.getEntries({ content_type: "homePage" });
 
-    // Verificação se existem itens
     if (response.items.length > 0) {
       const fields = response.items[0].fields;
-      logo.value = fields.logo?.fields.file.url || '';
-      siteName.value = fields.siteName || '';
-      name.value = fields.name || '';
-      address.value = fields.address || '';
-      phone.value = fields.cellphone || '';
-      email.value = fields.email || '';
+      logo.value = fields.logo?.fields.file.url || "";
+      siteName.value = fields.siteName || "";
+      name.value = fields.name || "";
+      address.value = fields.address || "";
+      phone.value = fields.cellphone || "";
+      email.value = fields.email || "";
     } else {
-      console.error('Nenhum item encontrado.');
+      console.error("Nenhum item encontrado.");
     }
   } catch (error) {
-    console.error('Erro ao buscar dados do Contentful:', error);
+    console.error("Erro ao buscar dados do Contentful:", error);
   }
 };
 
-// Executar a função quando o componente for montado
 onMounted(() => {
-  fetchData()
-})
+  fetchData();
+});
 </script>
 
 <template>
-  <!-- Passando os dados como props para os componentes -->
-  <img :src="backgroundImage" alt="Background" class="background"/>
+  <img :src="backgroundImage" alt="Background" class="background" />
   <HeaderSection :logo="logo" :name="siteName" />
   <main>
     <router-view class="view-body" />
   </main>
-  <FooterSection :name="siteName" :address="address" :phone="phone" :email="email" />
+  <FooterSection
+    :name="siteName"
+    :address="address"
+    :phone="phone"
+    :email="email"
+  />
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
 
-body, html, #app {
+body,
+html,
+#app {
   font-family: "IBM Plex Serif", serif;
-  font-size: 3rem;
+  font-size: 2rem;
   line-height: 1.6;
-  color: #111; /* Ajuste da cor */
+  color: #111;
   text-align: justify;
 }
 
 :deep h1 {
-  font-size: 2em; /* Dobro do tamanho normal */
-  font-weight: bold; /* Deixa a fonte em negrito */
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .my-4 {
