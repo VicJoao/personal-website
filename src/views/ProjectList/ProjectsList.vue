@@ -3,6 +3,7 @@ import { createClient } from "contentful";
 import { ref, onMounted } from "vue";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { useRouter } from "vue-router";
+import BaseButton from "@/components/base/BaseButton.vue";
 
 const projects = ref([]);
 
@@ -58,10 +59,9 @@ onMounted(() => {
                   truncate(documentToHtmlString(project.fields.description))
                 "
               ></div>
-              <router-link
+              <BaseButton
                 :to="{ name: 'Project', params: { id: project.sys.id } }"
-                class="btn btn-primary mt-3"
-                >Ver Projeto</router-link
+                >Ver Projeto</BaseButton
               >
             </div>
           </div>
@@ -71,72 +71,4 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
-.underlined-cont {
-  padding-bottom: 4px;
-  margin-bottom: 4px;
-  border-bottom: 4px solid #111111;
-}
-
-h1 {
-  text-align: center;
-  font-weight: bolder;
-  font-size: 3em;
-}
-
-h2 {
-  font-size: 2.5em;
-}
-
-.btn {
-  background-color: #666666;
-  border: 0px !important;
-  font-size: 1.2em;
-  color: #111111 !important;
-  font-weight: bold;
-  margin: 0 auto 0 0;
-  width: auto;
-  margin-bottom: 50px;
-}
-
-.btn:hover {
-  font-weight: bolder;
-  color: #808080 !important;
-}
-
-* {
-  font-size: 1.1em;
-}
-
-.square-img {
-  width: 11em;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border: 8px solid #111111;
-  border-radius: 8px;
-}
-@media (max-width: 768px) {
-  .btn {
-    margin: 30px 20px;
-  }
-  .square-img {
-    width: 80%;
-    height: auto;
-    margin: 20px 10%;
-  }
-  h1 {
-    font-size: 2em;
-  }
-  h2 {
-    font-size: 1.5em;
-  }
-  * {
-    font-size: 1em;
-    text-align: justify;
-  }
-  p {
-    text-align: justify !important;
-  }
-}
-</style>
+<style scoped></style>

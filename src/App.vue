@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import HeaderSection from "./components/HeaderSection.vue";
-import FooterSection from "./components/FooterSection.vue";
+import HeaderSection from "./components/layout/Header/HeaderSection.vue";
+import FooterSection from "./components/layout/Footer/FooterSection.vue";
 import { createClient } from "contentful";
 import backgroundImage from "@/assets/background.png";
 
@@ -56,27 +56,20 @@ onMounted(() => {
   />
 </template>
 
-<style scoped>
+<style>
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
 
+html {
+  font-size: 16px;
+}
+
 body,
-html,
 #app {
   font-family: "IBM Plex Serif", serif;
-  font-size: 2rem;
+  font-size: 1.5rem;
   line-height: 1.6;
   color: #111;
   text-align: justify;
-}
-
-:deep h1 {
-  font-size: 2em;
-  font-weight: bold;
-}
-
-.my-4 {
-  margin-top: 4rem !important;
-  margin-bottom: 4rem !important;
 }
 
 .background {
@@ -88,5 +81,29 @@ html,
   z-index: -1;
   object-fit: cover;
   object-position: center;
+}
+
+h1 {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 3em;
+}
+
+h2 {
+  font-size: 2.5em;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+.underlined-cont {
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+  border-bottom: 4px solid #111111;
+}
+a,
+a:visited {
+  color: #000 !important;
+  text-decoration: underline;
 }
 </style>

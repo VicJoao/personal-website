@@ -85,64 +85,16 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .banner img {
   width: 80%;
   height: auto;
   margin: 20px 10%;
   border: 8px solid #111111;
 }
-</style>
-<style scoped>
-.underlined-cont {
-  padding-bottom: 4px;
-  margin-bottom: 4px;
-  border-bottom: 4px solid #111111;
-}
-h1 {
-  text-align: center;
-  font-weight: bolder;
-  font-size: 3em;
-}
-h2 {
-  font-size: 2.5em;
-}
-.btn {
-  background-color: transparent !important;
-  border: 2px solid #111111 !important;
-  font-size: 1.2em;
-  color: #111111 !important;
-  font-weight: bold;
-  margin: 15px auto;
-  width: auto;
-}
-.btn:hover {
-  font-weight: bolder;
-  color: #808080 !important;
-  border: 2px solid #808080 !important;
-}
-* {
-  font-size: 1.1em;
-  text-align: justify;
-}
 .gif {
   width: 80%;
   height: auto;
   margin: 20px 10%;
-}
-@media (max-width: 767px) {
-  .banner img {
-    width: 100%;
-    margin: 20px 0;
-  }
-  h1 {
-    font-size: 2em;
-  }
-  h2 {
-    font-size: 1.5em;
-  }
-  * {
-    font-size: 1em;
-  }
 }
 </style>
