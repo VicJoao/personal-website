@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router"; // Alterado para hash history
+import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "@/views/Home/Home.vue";
 import Post from "@/views/Post/Post.vue";
 import PostsList from "@/views/PostList/PostsList.vue";

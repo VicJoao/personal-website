@@ -1,18 +1,34 @@
 <script setup>
 import { createClient } from "contentful";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { useRouter } from "vue-router";
 import BaseButton from "@/components/base/BaseButton.vue";
 import BaseTitle from "@/components/base/BaseTitle.vue";
+import BaseImage from "@/components/base/BaseImage.vue";
+
+const router = useRouter();
+const isMobile = ref(false);
+const checkMobile = () => {
+  isMobile.value = window.innerWidth < 900;
+};
+
+onMounted(() => {
+  checkMobile();
+  window.addEventListener("resize", checkMobile);
+  fetchData();
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", checkMobile);
+});
 
 const client = createClient({
   space: import.meta.env.VITE_SPACE,
   accessToken: import.meta.env.VITE_ACCESS_TOKEN,
 });
 
-const router = useRouter();
-
+// Todos os refs...
 const aboutTitle = ref("");
 const whatIDoTitle = ref("");
 const projectOneTitle = ref("");
@@ -32,88 +48,59 @@ const projectTwoId = ref("");
 const whatIDoText = ref("");
 const aboutText = ref("");
 
+// Funções fetch iguais...
 const fetchHomeData = async () => {
-  try {
-    const response = await client.getEntries({
-      content_type: "homePage",
-    });
-    aboutTitle.value = response.items[0]?.fields?.aboutTitle || "";
-    aboutText.value =
-      documentToHtmlString(response.items[0]?.fields?.aboutText) || "";
-    whatIDoTitle.value = response.items[0]?.fields?.whatIDoTitle || "";
-    whatIDoText.value =
-      documentToHtmlString(response.items[0]?.fields?.whatIDoText) || "";
-  } catch (error) {
-    console.error(
-      "Erro ao buscar dados da página inicial do Contentful:",
-      error
-    );
-  }
+  const response = await client.getEntries({ content_type: "homePage" });
+  const data = response.items[0]?.fields || {};
+  aboutTitle.value = data.aboutTitle || "";
+  aboutText.value = documentToHtmlString(data.aboutText) || "";
+  whatIDoTitle.value = data.whatIDoTitle || "";
+  whatIDoText.value = documentToHtmlString(data.whatIDoText) || "";
 };
 
 const fetchPostsData = async () => {
-  try {
-    const response = await client.getEntries({
-      content_type: "blogPage",
-    });
-    if (response.items.length >= 1) {
-      postOneTitle.value = response.items[0].fields.title || "";
-      const textOne = documentToHtmlString(response.items[0].fields.body) || "";
-      truncatedPostOneText.value = textOne.substring(0, 255) + "...";
-      postOneId.value = response.items[0].sys.id || "";
-    }
-    if (response.items.length >= 2) {
-      postTwoTitle.value = response.items[1].fields.title || "";
-      const textTwo = documentToHtmlString(response.items[1].fields.body) || "";
-      truncatedPostTwoText.value = textTwo.substring(0, 255) + "...";
-      postTwoId.value = response.items[1].sys.id || "";
-    }
-  } catch (error) {
-    console.error("Erro ao buscar dados do post do Contentful:", error);
+  const response = await client.getEntries({ content_type: "blogPage" });
+  const items = response.items;
+  if (items[0]) {
+    postOneTitle.value = items[0].fields.title;
+    truncatedPostOneText.value =
+      documentToHtmlString(items[0].fields.body).substring(0, 255) + "...";
+    postOneId.value = items[0].sys.id;
+  }
+  if (items[1]) {
+    postTwoTitle.value = items[1].fields.title;
+    truncatedPostTwoText.value =
+      documentToHtmlString(items[1].fields.body).substring(0, 255) + "...";
+    postTwoId.value = items[1].sys.id;
   }
 };
 
 const fetchProjectsData = async () => {
-  try {
-    const response = await client.getEntries({
-      content_type: "projectPage",
-    });
-    if (response.items.length > 0) {
-      projectOneTitle.value = response.items[0].fields.title || "";
-      const textOne =
-        documentToHtmlString(response.items[0].fields.description) || "";
-      truncatedProjectOneText.value = textOne.substring(0, 255) + "...";
-      projectOneImage.value =
-        response.items[0].fields.banner?.fields.file.url || "";
-      projectOneId.value = response.items[0].sys.id || "";
-    }
-    if (response.items.length > 1) {
-      projectTwoTitle.value = response.items[1].fields.title || "";
-      const textTwo =
-        documentToHtmlString(response.items[1].fields.description) || "";
-      truncatedProjectTwoText.value = textTwo.substring(0, 255) + "...";
-      projectTwoImage.value =
-        response.items[1].fields.banner?.fields.file.url || "";
-      projectTwoId.value = response.items[1].sys.id || "";
-    }
-  } catch (error) {
-    console.error("Erro ao buscar dados do projeto do Contentful:", error);
+  const response = await client.getEntries({ content_type: "projectPage" });
+  const items = response.items;
+  if (items[0]) {
+    const p = items[0];
+    projectOneTitle.value = p.fields.title;
+    truncatedProjectOneText.value =
+      documentToHtmlString(p.fields.description).substring(0, 255) + "...";
+    projectOneImage.value = p.fields.banner?.fields.file.url;
+    projectOneId.value = p.sys.id;
+  }
+  if (items[1]) {
+    const p = items[1];
+    projectTwoTitle.value = p.fields.title;
+    truncatedProjectTwoText.value =
+      documentToHtmlString(p.fields.description).substring(0, 255) + "...";
+    projectTwoImage.value = p.fields.banner?.fields.file.url;
+    projectTwoId.value = p.sys.id;
   }
 };
 
 const fetchData = async () => {
-  try {
-    await fetchHomeData();
-    await fetchProjectsData();
-    await fetchPostsData();
-  } catch (error) {
-    console.error("Erro ao buscar dados do Contentful:", error);
-  }
+  await fetchHomeData();
+  await fetchProjectsData();
+  await fetchPostsData();
 };
-
-onMounted(() => {
-  fetchData();
-});
 </script>
 
 <template>
@@ -131,11 +118,14 @@ onMounted(() => {
     <section v-if="projectOneTitle || projectTwoTitle">
       <BaseTitle text="Portfólio" :underlined="true" class="mb-4" />
       <div class="row small-row">
+        <!-- Projeto 1 -->
         <div class="row mb-4 project" v-if="projectOneTitle">
           <div class="col-auto">
-            <img
+            <BaseImage
               v-if="projectOneImage"
               :src="projectOneImage"
+              :formato="isMobile ? 'banner' : 'miniatura'"
+              :largura="isMobile ? '100%' : '250px'"
               alt="Project One"
               class="img-fluid rounded square-img"
             />
@@ -154,11 +144,15 @@ onMounted(() => {
             </BaseButton>
           </div>
         </div>
+
+        <!-- Projeto 2 -->
         <div class="row project" v-if="projectTwoTitle">
           <div class="col-auto">
-            <img
+            <BaseImage
               v-if="projectTwoImage"
               :src="projectTwoImage"
+              :formato="isMobile ? 'banner' : 'miniatura'"
+              :largura="isMobile ? '100%' : '250px'"
               alt="Project Two"
               class="img-fluid rounded square-img"
             />
@@ -185,20 +179,20 @@ onMounted(() => {
         style="width: 100%"
         @click="router.push('/projects')"
       >
-        Acessar Portfólio
+        Acessar Portfólio Completo
       </BaseButton>
     </section>
 
     <section v-if="postOneTitle || postTwoTitle">
       <BaseTitle text="Posts" :underlined="true" class="mb-4" />
       <div class="row">
+        <!-- Post 1 -->
         <div
           class="row align-content-end justify-content-end"
           v-if="postOneTitle"
         >
           <BaseTitle :text="postOneTitle" />
           <div v-html="truncatedPostOneText" class="mb-3"></div>
-          <!-- Posts -->
           <div class="text-end">
             <BaseButton
               v-if="postOneId"
@@ -209,6 +203,8 @@ onMounted(() => {
             </BaseButton>
           </div>
         </div>
+
+        <!-- Post 2 -->
         <div
           class="row align-content-end justify-content-end"
           v-if="postTwoTitle"

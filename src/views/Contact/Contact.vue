@@ -38,49 +38,49 @@ onMounted(() => {
     <div class="row text-center">
       <div class="col">
         <img
-          src="../assets/contato (1).png"
+          src="../../assets/contato (1).png"
           alt="Contato Image 1"
           class="img-fluid lettering"
         />
       </div>
       <div class="col">
         <img
-          src="../assets/contato (2).png"
+          src="../../assets/contato (2).png"
           alt="Contato Image 2"
           class="img-fluid lettering"
         />
       </div>
       <div class="col">
         <img
-          src="../assets/contato (3).png"
+          src="../../assets/contato (3).png"
           alt="Contato Image 3"
           class="img-fluid lettering"
         />
       </div>
       <div class="col">
         <img
-          src="../assets/contato (4).png"
+          src="../../assets/contato (4).png"
           alt="Contato Image 4"
           class="img-fluid lettering"
         />
       </div>
       <div class="col">
         <img
-          src="../assets/contato (5).png"
+          src="../../assets/contato (5).png"
           alt="Contato Image 5"
           class="img-fluid lettering"
         />
       </div>
       <div class="col">
         <img
-          src="../assets/contato (6).png"
+          src="../../assets/contato (6).png"
           alt="Contato Image 6"
           class="img-fluid lettering"
         />
       </div>
       <div class="col">
         <img
-          src="../assets/contato (7).png"
+          src="../../assets/contato (7).png"
           alt="Contato Image 7"
           class="img-fluid lettering"
         />
@@ -89,13 +89,13 @@ onMounted(() => {
 
     <div class="row align-items-center text-center mb-4">
       <img
-        src="../assets/whatsapp-logo.png"
+        src="../../assets/whatsapp-logo.png"
         alt="Phone Logo"
         class="logo-mobile img-fluid"
       />
       <div class="col d-flex justify-content-center">
         <img
-          src="../assets/whatsapp-logo.png"
+          src="../../assets/whatsapp-logo.png"
           alt="Phone Logo"
           class="logo img-fluid"
         />
@@ -111,7 +111,7 @@ onMounted(() => {
 
     <div class="row align-items-center text-center">
       <img
-        src="../assets/email-logo.png"
+        src="../../assets/email-logo.png"
         alt="Email Logo"
         class="logo-mobile img-fluid"
       />
@@ -124,7 +124,7 @@ onMounted(() => {
           />
         </a>
         <img
-          src="../assets/email-logo.png"
+          src="../../assets/email-logo.png"
           alt="Email Logo"
           class="logo img-fluid"
         />

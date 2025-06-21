@@ -1,13 +1,36 @@
 <template>
+  <!-- Link interno com router-link -->
   <router-link
-    v-if="type === 'link'"
+    v-if="type === 'link' && !disabled"
     :to="to"
     class="custom-btn"
-    :disabled="disabled"
     v-bind="$attrs"
   >
     <slot />
   </router-link>
+
+  <!-- Link interno desabilitado -->
+  <span v-else-if="type === 'link' && disabled" class="custom-btn disabled">
+    <slot />
+  </span>
+
+  <!-- Link externo -->
+  <a
+    v-else-if="type === 'external' && !disabled"
+    :href="to"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="custom-btn"
+  >
+    <slot />
+  </a>
+
+  <!-- Link externo desabilitado -->
+  <span v-else-if="type === 'external' && disabled" class="custom-btn disabled">
+    <slot />
+  </span>
+
+  <!-- Botão padrão -->
   <button
     v-else
     class="custom-btn"
@@ -27,7 +50,7 @@ export default {
       type: String,
       default: "button",
       validator: (value) =>
-        ["button", "submit", "reset", "link"].includes(value),
+        ["button", "submit", "reset", "link", "external"].includes(value),
     },
     to: {
       type: [String, Object],
@@ -60,5 +83,12 @@ export default {
   font-weight: bolder;
   color: white;
   background-color: #696969;
+}
+
+.custom-btn.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+  text-decoration: none;
 }
 </style>

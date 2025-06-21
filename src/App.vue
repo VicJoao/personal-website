@@ -106,4 +106,18 @@ a:visited {
   color: #000 !important;
   text-decoration: underline;
 }
+@media (max-width: 900px) {
+  body,
+  #app {
+    font-size: 1.2rem;
+  }
+
+  h1 {
+    font-size: 2.5em;
+  }
+
+  h2 {
+    font-size: 2em;
+  }
+}
 </style>
