@@ -73,7 +73,7 @@ onMounted(() => {
       </div>
       <div class="col">
         <img
-          src="../../assets/contato (6).wepb"
+          src="../../assets/contato (6).webp"
           alt="Contato Image 6"
           class="img-fluid lettering"
         />
