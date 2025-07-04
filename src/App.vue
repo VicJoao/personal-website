@@ -34,6 +34,13 @@ const fetchData = async () => {
     }
   } catch (error) {
     console.error("Erro ao buscar dados do Contentful:", error);
+  } finally {
+    // Emite evento apenas no cliente
+    if (typeof window !== 'undefined') {
+      setTimeout(() => {
+        document.dispatchEvent(new Event('render-event'));
+      }, 500);
+    }
   }
 };
 

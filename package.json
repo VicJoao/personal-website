@@ -6,7 +6,8 @@
   "homepage": "https://github.com/VicJoao/personal-website",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite-ssg build",
+    "build:spa": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
     "gh-pages": "^5.0.0",
-    "vite": "^7.0.1"
+    "vite": "^7.0.1",
+    "vite-ssg": "^28.0.0"
   }
 }

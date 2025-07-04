@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory, createMemoryHistory } from "vue-router";
 import Home from "@/views/Home/Home.vue";
 import Post from "@/views/Post/Post.vue";
 import PostsList from "@/views/PostList/PostsList.vue";
@@ -6,7 +6,7 @@ import Project from "@/views/Project/Project.vue";
 import ProjectsList from "@/views/ProjectList/ProjectsList.vue";
 import Contact from "@/views/Contact/Contact.vue";
 
-const routes = [
+export const routes = [
   {
     path: "/",
     name: "Home",
@@ -42,7 +42,9 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.VITE_BASE_URL),
+  history: typeof window !== 'undefined' 
+    ? createWebHistory(import.meta.env.VITE_BASE_URL)
+    : createMemoryHistory(),
   routes,
 });
 
