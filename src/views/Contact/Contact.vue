@@ -1,6 +1,51 @@
 <script setup>
 import { createClient } from "contentful";
 import { ref, onMounted } from "vue";
+import { useHead } from "@unhead/vue";
+import { seoConfig } from "@/utils/seo.js";
+
+// Meta tags otimizadas para página de Contato
+useHead({
+  title: seoConfig.pages.contact.title,
+  meta: [
+    {
+      name: "description",
+      content: seoConfig.pages.contact.description
+    },
+    {
+      name: "keywords",
+      content: seoConfig.pages.contact.keywords
+    },
+    {
+      name: "author",
+      content: seoConfig.author
+    },
+    {
+      property: "og:title",
+      content: seoConfig.pages.contact.title
+    },
+    {
+      property: "og:description",
+      content: seoConfig.pages.contact.description
+    },
+    {
+      property: "og:type",
+      content: "website"
+    },
+    {
+      name: "twitter:card",
+      content: "summary"
+    },
+    {
+      name: "twitter:title",
+      content: seoConfig.pages.contact.title
+    },
+    {
+      name: "twitter:description",
+      content: seoConfig.pages.contact.description
+    }
+  ]
+});
 
 const emailBanner = ref("");
 const email = ref("");

@@ -3,9 +3,54 @@ import { createClient } from "contentful";
 import { ref, onMounted, onUnmounted } from "vue";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { useRouter } from "vue-router";
+import { useHead } from "@unhead/vue";
+import { seoConfig } from "@/utils/seo.js";
 import BaseButton from "@/components/base/BaseButton.vue";
 import BaseTitle from "@/components/base/BaseTitle.vue";
 import BaseImage from "@/components/base/BaseImage.vue";
+
+// Meta tags otimizadas para Home
+useHead({
+  title: seoConfig.pages.home.title,
+  meta: [
+    {
+      name: "description",
+      content: seoConfig.pages.home.description
+    },
+    {
+      name: "keywords",
+      content: seoConfig.pages.home.keywords
+    },
+    {
+      name: "author",
+      content: seoConfig.author
+    },
+    {
+      property: "og:title",
+      content: seoConfig.pages.home.title
+    },
+    {
+      property: "og:description",
+      content: seoConfig.pages.home.description
+    },
+    {
+      property: "og:type",
+      content: "website"
+    },
+    {
+      name: "twitter:card",
+      content: "summary_large_image"
+    },
+    {
+      name: "twitter:title",
+      content: seoConfig.pages.home.title
+    },
+    {
+      name: "twitter:description",
+      content: seoConfig.pages.home.description
+    }
+  ]
+});
 
 const router = useRouter();
 const isMobile = ref(false);

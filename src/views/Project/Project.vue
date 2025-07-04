@@ -58,6 +58,8 @@ import { createClient } from "contentful";
 import { ref, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { useHead } from "@unhead/vue";
+import { truncateText } from "@/utils/seo.js";
 import BaseImage from "@/components/base/BaseImage.vue";
 import BaseButton from "@/components/base/BaseButton.vue";
 
@@ -73,8 +75,91 @@ export default {
     const banner = ref("");
     const isMobile = ref(false);
 
+    // Meta tags dinâmicas para projetos
+    const headData = ref({
+      title: "Projeto - João Victor | Portfolio Vue.js e Desenvolvimento Web",
+      meta: [
+        {
+          name: "description",
+          content: "Projeto desenvolvido por João Victor utilizando Vue.js, Contentful e outras tecnologias modernas de desenvolvimento web."
+        },
+        {
+          name: "keywords",
+          content: "projeto Vue.js, portfolio desenvolvedor, João Victor projeto, desenvolvimento web"
+        },
+        {
+          property: "og:title",
+          content: "Projeto - João Victor | Portfolio"
+        },
+        {
+          property: "og:description",
+          content: "Projeto desenvolvido por João Victor utilizando Vue.js, Contentful e outras tecnologias modernas."
+        },
+        {
+          property: "og:type",
+          content: "website"
+        }
+      ]
+    });
+
+    useHead(headData);
+
     const checkMobile = () => {
       isMobile.value = window.innerWidth < 900;
+    };
+
+    const updateMetaTags = (projectTitle, projectDescription, projectBanner) => {
+      const description = truncateText(projectDescription, 155);
+      
+      headData.value = {
+        title: `${projectTitle} - João Victor | Portfolio Vue.js e Desenvolvimento Web`,
+        meta: [
+          {
+            name: "description",
+            content: description
+          },
+          {
+            name: "keywords",
+            content: `${projectTitle}, projeto Vue.js, portfolio desenvolvedor, João Victor projeto, desenvolvimento web`
+          },
+          {
+            name: "author",
+            content: "João Victor"
+          },
+          {
+            property: "og:title",
+            content: `${projectTitle} - João Victor | Portfolio`
+          },
+          {
+            property: "og:description",
+            content: description
+          },
+          {
+            property: "og:type",
+            content: "website"
+          },
+          {
+            property: "og:image",
+            content: projectBanner || ""
+          },
+          {
+            name: "twitter:card",
+            content: "summary_large_image"
+          },
+          {
+            name: "twitter:title",
+            content: `${projectTitle} - João Victor`
+          },
+          {
+            name: "twitter:description",
+            content: description
+          },
+          {
+            name: "twitter:image",
+            content: projectBanner || ""
+          }
+        ]
+      };
     };
 
     const fetchData = async (projectId) => {
@@ -97,6 +182,9 @@ export default {
           githubLink.value = project.githubLink || "";
           liveLink.value = project.liveLink || "";
           banner.value = project.banner?.fields?.file?.url || "";
+
+          // Atualizar meta tags com dados do projeto
+          updateMetaTags(project.title, description.value, banner.value);
         } else {
           console.warn("Projeto não encontrado");
         }

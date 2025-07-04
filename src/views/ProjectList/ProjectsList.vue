@@ -2,8 +2,53 @@
 import { createClient } from "contentful";
 import { ref, onMounted, onUnmounted } from "vue";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { useHead } from "@unhead/vue";
+import { seoConfig } from "@/utils/seo.js";
 import BaseButton from "@/components/base/BaseButton.vue";
 import BaseImage from "@/components/base/BaseImage.vue";
+
+// Meta tags otimizadas para página de Portfólio
+useHead({
+  title: seoConfig.pages.portfolio.title,
+  meta: [
+    {
+      name: "description",
+      content: seoConfig.pages.portfolio.description
+    },
+    {
+      name: "keywords",
+      content: seoConfig.pages.portfolio.keywords
+    },
+    {
+      name: "author",
+      content: seoConfig.author
+    },
+    {
+      property: "og:title",
+      content: seoConfig.pages.portfolio.title
+    },
+    {
+      property: "og:description",
+      content: seoConfig.pages.portfolio.description
+    },
+    {
+      property: "og:type",
+      content: "website"
+    },
+    {
+      name: "twitter:card",
+      content: "summary_large_image"
+    },
+    {
+      name: "twitter:title",
+      content: seoConfig.pages.portfolio.title
+    },
+    {
+      name: "twitter:description",
+      content: seoConfig.pages.portfolio.description
+    }
+  ]
+});
 
 const projects = ref([]);
 const isMobile = ref(false);

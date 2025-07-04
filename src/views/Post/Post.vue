@@ -35,9 +35,11 @@
 
 <script>
 import { createClient } from "contentful";
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import { useRoute } from "vue-router";
+import { useHead } from "@unhead/vue";
+import { truncateText } from "@/utils/seo.js";
 import BaseTitle from "@/components/base/BaseTitle.vue";
 import BaseImage from "@/components/base/BaseImage.vue";
 
@@ -53,8 +55,91 @@ export default {
     const image = ref("");
     const isMobile = ref(false);
 
+    // Meta tags dinâmicas para posts
+    const headData = ref({
+      title: "Post - João Victor | Blog sobre Vue.js e Desenvolvimento Web",
+      meta: [
+        {
+          name: "description",
+          content: "Artigo sobre desenvolvimento web, Vue.js e tecnologias front-end por João Victor."
+        },
+        {
+          name: "keywords",
+          content: "blog desenvolvimento, Vue.js, front-end, João Victor"
+        },
+        {
+          property: "og:title",
+          content: "Post - João Victor | Blog"
+        },
+        {
+          property: "og:description",
+          content: "Artigo sobre desenvolvimento web, Vue.js e tecnologias front-end por João Victor."
+        },
+        {
+          property: "og:type",
+          content: "article"
+        }
+      ]
+    });
+
+    useHead(headData);
+
     const checkMobile = () => {
       isMobile.value = window.innerWidth < 900;
+    };
+
+    const updateMetaTags = (postTitle, postBody) => {
+      const description = truncateText(postBody, 155);
+      
+      headData.value = {
+        title: `${postTitle} - João Victor | Blog sobre Vue.js e Desenvolvimento Web`,
+        meta: [
+          {
+            name: "description",
+            content: description
+          },
+          {
+            name: "keywords",
+            content: `${postTitle}, blog desenvolvimento, Vue.js, front-end, João Victor`
+          },
+          {
+            name: "author",
+            content: "João Victor"
+          },
+          {
+            property: "og:title",
+            content: `${postTitle} - João Victor | Blog`
+          },
+          {
+            property: "og:description",
+            content: description
+          },
+          {
+            property: "og:type",
+            content: "article"
+          },
+          {
+            property: "og:image",
+            content: image.value || ""
+          },
+          {
+            name: "twitter:card",
+            content: "summary_large_image"
+          },
+          {
+            name: "twitter:title",
+            content: `${postTitle} - João Victor`
+          },
+          {
+            name: "twitter:description",
+            content: description
+          },
+          {
+            name: "twitter:image",
+            content: image.value || ""
+          }
+        ]
+      };
     };
 
     const fetchData = async (postId) => {
@@ -79,6 +164,9 @@ export default {
           } else {
             console.warn("Imagem não encontrada no post");
           }
+
+          // Atualizar meta tags com dados do post
+          updateMetaTags(post.title, body.value);
         } else {
           console.warn("Post não encontrado");
         }
