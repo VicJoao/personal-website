@@ -217,7 +217,7 @@ const toggleMobileMenu = () => {
 }
 
 .mobile-menu-content {
-  background: white url('/src/assets/menu-background.jpg') no-repeat center center;
+  background: white url('/src/assets/menu-background.webp') no-repeat center center;
   background-size: cover;
   padding: 2rem;
   border-radius: 1rem;

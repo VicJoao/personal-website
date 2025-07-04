@@ -3,7 +3,7 @@ import { ref, onMounted } from "vue";
 import HeaderSection from "./components/layout/Header/HeaderSection.vue";
 import FooterSection from "./components/layout/Footer/FooterSection.vue";
 import { createClient } from "contentful";
-import backgroundImage from "@/assets/background.png";
+import backgroundImage from "@/assets/background.webp";
 
 const client = createClient({
   space: import.meta.env.VITE_SPACE,
