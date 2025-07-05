@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory, createMemoryHistory } from "vue-router";
-import Home from "@/views/Home/Home.vue";
-import Post from "@/views/Post/Post.vue";
-import PostsList from "@/views/PostList/PostsList.vue";
-import Project from "@/views/Project/Project.vue";
-import ProjectsList from "@/views/ProjectList/ProjectsList.vue";
-import Contact from "@/views/Contact/Contact.vue";
+
+// Lazy loading para melhor performance - carrega apenas quando necessário
+const Home = () => import("@/views/Home/Home.vue");
+const Post = () => import("@/views/Post/Post.vue");
+const PostsList = () => import("@/views/PostList/PostsList.vue");
+const Project = () => import("@/views/Project/Project.vue");
+const ProjectsList = () => import("@/views/ProjectList/ProjectsList.vue");
+const Contact = () => import("@/views/Contact/Contact.vue");
 
 export const routes = [
   {

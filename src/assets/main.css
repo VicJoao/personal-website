@@ -1,0 +1,72 @@
+/* CSS não crítico - carregado após o CSS crítico */
+
+/* Animações e transições */
+img {
+  max-width: 100%;
+  height: auto;
+  transition: opacity 0.3s ease;
+}
+
+img[loading="lazy"] {
+  opacity: 0;
+}
+
+img[loading="lazy"].loaded {
+  opacity: 1;
+}
+
+/* Componentes específicos */
+.view-body {
+  min-height: 60vh;
+  padding: 1rem;
+}
+
+/* Melhorias de performance */
+.background-loaded {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+/* Componentes de layout */
+main {
+  position: relative;
+  z-index: 1;
+}
+
+/* Estilos para componentes Vue */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+/* Otimizações adicionais */
+.text-content {
+  max-width: 65ch;
+  margin: 0 auto;
+}
+
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Print styles */
+@media print {
+  .background {
+    display: none;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+}

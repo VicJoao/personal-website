@@ -10,10 +10,13 @@ export const createApp = ViteSSG(
     base: import.meta.env.VITE_BASE_URL || '/'
   },
   ({ app, router, routes, isClient, initialState }) => {
-    // Importar Bootstrap apenas no cliente
+    // Importar Bootstrap apenas no cliente e de forma lazy
     if (isClient) {
-      import("bootstrap/dist/css/bootstrap.min.css");
-      import("bootstrap/dist/js/bootstrap.bundle.min.js");
+      // Atrasar importação do Bootstrap para não bloquear FCP
+      requestIdleCallback(() => {
+        import("bootstrap/dist/css/bootstrap.min.css");
+        import("bootstrap/dist/js/bootstrap.bundle.min.js");
+      });
     }
   }
 )
